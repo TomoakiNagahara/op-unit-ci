@@ -73,6 +73,7 @@ class CI implements IF_UNIT
 	{
 		//	...
 		if( file_exists('.ci_skip') ){
+			self::Display('Found .ci_skip file.');
 			self::SaveCommitID();
 			return;
 		}
@@ -105,7 +106,7 @@ class CI implements IF_UNIT
 		}else if( dirname($current).'/' === OP()->MetaRoot('unit') ){
 			$namespace = 'OP\UNIT\\';
 		}else{
-			throw new Exception("Does not found namespace. ($current)");
+			$namespace = 'OP\MODULE\\';
 		}
 
 		//	You can specify and inspect only a specific class.
@@ -148,6 +149,12 @@ class CI implements IF_UNIT
 	 */
 	static function CI_Class(object $obj)
 	{
+		//	...
+		if(!isset(class_uses($obj, false)['OP\OP_CI']) ){
+			$class_name = get_class($obj);
+			throw new Exception("This object has not use OP_CI. ({$class_name})");
+		}
+
 		//	You can specify and inspect onnly a specific method.
 		if( $method_list = OP()->Request('method') ){
 			$methods = [];
@@ -198,7 +205,7 @@ class CI implements IF_UNIT
 			$result = null;
 			$traces = null;
 
-			//	Inspect each args
+			//	Inspect each args.
 			self::CI_Args($obj, $method, $args, $result, $traces);
 
 			//	If result is object.
@@ -209,6 +216,17 @@ class CI implements IF_UNIT
 			//	...
 			if( $result !== $expect ){
 				//	...
+				echo "\n";
+				echo 'Config: ';
+				\OP\UNIT\Dump::MarkPlain($config, []);
+				echo "\n";
+				echo 'Expect: ';
+				\OP\UNIT\Dump::MarkPlain($expect, []);
+				echo "\n";
+				echo 'Result: ';
+				\OP\UNIT\Dump::MarkPlain($result, []);
+
+				//	...
 				if( $traces ){
 					$i = count($traces);
 					echo "\n{$result}\n\n";
@@ -217,19 +235,7 @@ class CI implements IF_UNIT
 						$n = str_pad((string)$i, 2, ' ', STR_PAD_LEFT);
 						echo "$n: ".OP()->DebugBacktraceToString($trace)."\n";
 					}
-					echo "\n";
 				}
-
-				//	...
-				echo "\n";
-				echo 'Config: ';
-				print_r($config);
-				echo "\n";
-				echo 'Expect: ';
-				print_r($expect);
-				echo "\n\n";
-				echo 'Result: ';
-				print_r($result);
 
 				//	...
 				$class = get_class($obj);
@@ -247,7 +253,7 @@ class CI implements IF_UNIT
 	 * @param      array       $result
 	 * @param      array       $traces
 	 */
-	static function CI_Args(object $obj, string $method, array $args, array &$result, array &$traces)
+	static function CI_Args(object $obj, string $method, array $args, null &$result, null &$traces)
 	{
 		//	...
 		$traces = null;
@@ -307,6 +313,11 @@ class CI implements IF_UNIT
 		$branch    = self::Git()->CurrentBranch();
 		$commit_id = self::Git()->CurrentCommitID();
 		$file_name = ".ci_commit_id_{$branch}";
+
+		//	...
+		if(!file_exists($file_name) ){
+			return false;
+		}
 		$saved_id  = file_get_contents($file_name);
 
 		//	...
