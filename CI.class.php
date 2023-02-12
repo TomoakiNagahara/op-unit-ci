@@ -253,7 +253,7 @@ class CI implements IF_UNIT
 	 * @param      array       $result
 	 * @param      array       $traces
 	 */
-	static function CI_Args(object $obj, string $method, array $args, null &$result, null &$traces)
+	static function CI_Args(object $obj, string $method, array $args, /* php82 null */ &$result, /* php82 null */ &$traces)
 	{
 		//	...
 		$traces = null;
