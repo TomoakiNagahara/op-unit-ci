@@ -162,7 +162,7 @@ class CI implements IF_UNIT
 				$methods[] = trim($method_name);
 			}
 		}else{
-			$methods = $obj->AllMethods();
+			$methods = $obj->CI_AllMethods();
 		}
 
 		//	Get CI Configs for that instance.
@@ -176,8 +176,8 @@ class CI implements IF_UNIT
 				//	Magic method
 				case (strpos($method, '__') === 0 ) ? true: false;
 				case 'CI':
-				case 'AllMethods':
-				case 'Inspection':
+				case 'CI_AllMethods':
+				case 'CI_Inspection':
 					continue 2;
 			}
 
@@ -262,7 +262,7 @@ class CI implements IF_UNIT
 		try {
 			//	Inspection.
 			ob_start();
-			if(!$result = $obj->Inspection($method, ...$args) ){
+			if(!$result = $obj->CI_Inspection($method, ...$args) ){
 				//	If empty return value, evaluate contents.
 				if( $contents = ob_get_contents() ){
 					$result   = $contents;
