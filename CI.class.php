@@ -284,6 +284,21 @@ class CI implements IF_UNIT
 		}
 	}
 
+	/** Generate Commit ID saved file name.
+	 *
+	 * @created    2023-02-10
+	 * @return     string
+	 */
+	static function GenerateFilename():string
+	{
+		//	...
+		$version   = PHP_MAJOR_VERSION.PHP_MINOR_VERSION;
+		$branch    = self::Git()->CurrentBranch();
+		$file_name = ".ci_commit_id_{$branch}_php{$version}";
+
+		return $file_name;
+	}
+
 	/** Save inspected branch commit id.
 	 *
 	 * @created    2023-02-10
@@ -293,7 +308,7 @@ class CI implements IF_UNIT
 		//	...
 		$branch    = self::Git()->CurrentBranch();
 		$commit_id = self::Git()->CurrentCommitID();
-		$file_name = ".ci_commit_id_{$branch}";
+		$file_name = self::GenerateFilename();
 
 		//	...
 		file_put_contents($file_name, $commit_id);
@@ -312,7 +327,7 @@ class CI implements IF_UNIT
 		//	...
 		$branch    = self::Git()->CurrentBranch();
 		$commit_id = self::Git()->CurrentCommitID();
-		$file_name = ".ci_commit_id_{$branch}";
+		$file_name = self::GenerateFilename();
 
 		//	...
 		if(!file_exists($file_name) ){
