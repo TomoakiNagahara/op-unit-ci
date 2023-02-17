@@ -287,13 +287,18 @@ class CI implements IF_UNIT
 	/** Generate Commit ID saved file name.
 	 *
 	 * @created    2023-02-10
+	 * @param      string      $branch
 	 * @return     string
 	 */
-	static function GenerateFilename():string
+	static function GenerateFilename(string $branch=''):string
 	{
 		//	...
+		if(!$branch ){
+			$branch = self::Git()->CurrentBranch();
+		}
+
+		//	...
 		$version   = PHP_MAJOR_VERSION.PHP_MINOR_VERSION;
-		$branch    = self::Git()->CurrentBranch();
 		$file_name = ".ci_commit_id_{$branch}_php{$version}";
 
 		return $file_name;
