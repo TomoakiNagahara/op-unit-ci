@@ -37,7 +37,7 @@ function CIConfig(&$object) : array
 		//	OP
 		case '2':
 			$io   = true;
-			$meta = 'op';
+			$meta = 'core';
 			$name = $class_parse[1];
 			break;
 
