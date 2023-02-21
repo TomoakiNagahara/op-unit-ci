@@ -41,6 +41,45 @@ class CI implements IF_UNIT
 	 */
 	use OP_CORE, OP_CI;
 
+	/** Config
+	 *
+	 * @created   2022-10-15
+	 * @var       array
+	 */
+	private $_config;
+
+	/** Set Config.
+	 *
+	 * @created    2022-10-15
+	 * @moved      2023-02-22 op-core:/CI.class.php
+	 * @param      string     $method
+	 * @param      array      $args
+	 * @param      array      $result
+	 */
+	function Set($method, $result, $args)
+	{
+		$this->_config[$method][] = [
+			'result' => $result,
+			'args'   => $args,
+		];
+	}
+
+	/** Generate Config.
+	 *
+	 * @created    2022-10-15
+	 * @moved      2023-02-22 op-core:/CI.class.php
+	 * @return     array      $config
+	 */
+	function GenerateConfig():array
+	{
+		//	Swap config.
+		$config = $this->_config;
+		//	Reset config.
+		$this->_config = [];
+		//	Return config.
+		return $config;
+	}
+
 	/** Git
 	 *
 	 * @created    2023-02-05
