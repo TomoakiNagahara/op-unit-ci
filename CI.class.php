@@ -369,6 +369,11 @@ class CI implements IF_UNIT
 	static function CheckCommitID():bool
 	{
 		//	...
+		if( OP()->Request('force') ){
+			return false;
+		}
+
+		//	...
 		$branch    = self::Git()->CurrentBranch();
 		$commit_id = self::Git()->CurrentCommitID();
 		$file_name = self::GenerateFilename();
