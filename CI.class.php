@@ -435,6 +435,7 @@ class CI_Client implements IF_UNIT
 
             //  Instantiate Object from class.
             $class = $namespace . $name;
+            $class = str_replace('-', '\\', $class);
             $obj = new $class();
 
             /*
