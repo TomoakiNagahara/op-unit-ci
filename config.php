@@ -11,4 +11,8 @@
  */
 //	...
 return [
+    'app_id'   => 'CI1',
+    'testcase' => [
+        'port' => '8000',
+    ],
 ];
