@@ -33,29 +33,25 @@ function CIConfig(&$object) : array
 	$class_parse = explode('\\', $class_path);
 
 	//	...
-	switch( count($class_parse) ){
+    if( count($class_parse) === 2 ){
 		//	OP
-		case '2':
 			$io   = true;
 			$meta = 'core';
 			$name = $class_parse[1];
-			break;
-
-			//	UNIT
-		case '3':
-			$io = $class_parse[1] === 'UNIT' ? true: false;
-			$meta = 'unit';
-			$unit = strtolower($class_parse[2]);
-			$name = $class_parse[2];
-			break;
-
-		default:
-			$io = false;
+    }else{
+        //  UNIT
+        if( $io = $class_parse[1] === 'UNIT' ? true: false ){
+            array_shift($class_parse);
+            array_shift($class_parse);
+            $meta = 'unit';
+            $unit = strtolower($class_parse[0]);
+            $name = join('-', $class_parse);
+        }
 	}
 
 	//	...
 	if(!$io ){
-		throw new \Exception("Illigal namespace. ($class_path)");
+		throw new \Exception("Is correct namespace? ($class_path)");
 	}
 
 	//	...
