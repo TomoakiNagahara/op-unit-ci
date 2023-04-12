@@ -349,7 +349,7 @@ class CI implements IF_UNIT
 	 *
 	 * @created    2023-02-10
 	 */
-	static function SaveCommitID():void
+	static function SaveCommitID()
 	{
 		//	...
 		$branch    = self::Git()->CurrentBranch();
