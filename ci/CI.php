@@ -19,7 +19,7 @@ declare(strict_types=1);
 namespace OP;
 
 //	...
-$ci = new CI();
+$ci = OP::Unit('CI');
 
 //	Test
 $result =  null;
