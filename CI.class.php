@@ -188,7 +188,7 @@ class CI implements IF_UNIT
 	 * @created    2023-02-10
 	 * @param      object      $obj
 	 */
-	static function CI_Class(object $obj)
+	static function CI_Class(       $obj)
 	{
 		//	...
 		if(!isset(class_uses($obj, false)['OP\OP_CI']) ){
@@ -235,7 +235,7 @@ class CI implements IF_UNIT
 	 * @param      array       $configs
 	 * @throws \Exception
 	 */
-	static function CI_Method(object $obj, string $method, array $configs)
+	static function CI_Method(       $obj, string $method, array $configs)
 	{
 		//	Inspect each args
 		foreach( $configs as $config ){
@@ -294,7 +294,7 @@ class CI implements IF_UNIT
 	 * @param      array       $result
 	 * @param      array       $traces
 	 */
-	static function CI_Args(object $obj, string $method, array $args, /* php82 null */ &$result, /* php82 null */ &$traces)
+	static function CI_Args(       $obj, string $method, array $args, /* php82 null */ &$result, /* php82 null */ &$traces)
 	{
 		//	...
 		$traces = null;
