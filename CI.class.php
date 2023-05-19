@@ -431,12 +431,33 @@ class CI implements IF_UNIT
     static function Testcase() : bool
     {
         //  ...
-        $port = '8000';
-        $url  = "http://localhost:{$port}/";
-        $io   = `curl -Ss {$url}`;
+        $port = rand(8900,8999);
+        $url  = "localhost:{$port}";
+        $php  = $_SERVER['_'];
+        $app  = OP()->MetaPath('app:/');
+
+        //  ...
+        $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
+
+        //  ...
+        if( 0 ){
+            echo exec($exec)."\n";
+        }else{
+            $handle = popen($exec, 'r');
+        }
+
+        //  ...
+        usleep(10);
+        //echo $exec."\n";
+
+        //  Connection test.
+        for($i=0; $i<10; $i++){
+            //  ...
+            if( $io = `curl -Ss http://{$url}` ){
+                break;
+            }
+        }
         if( $io === null ){
-            $php = $_SERVER['_'];
-            $app = OP()->MetaPath('app:/');
             echo "\n";
             echo "hint: HTTP server is not running: ($url)\n";
             echo "hint: cd {$app}\n";
@@ -456,7 +477,7 @@ class CI implements IF_UNIT
 
             //  Do test via Web.
             $path   = realpath($path);
-            $path   = OP()->MetaToURL($path);
+            $path   = OP()->MetaURL($path);
             $result = `curl -Ss {$url}?path={$path}`;
 
             //  If it returns 1, that passes the test.
@@ -465,8 +486,31 @@ class CI implements IF_UNIT
             }
 
             //  ...
-            D($result);
-            return false;
+            $fail = true;
+            break;
+        }
+
+        /* @var $handle resource */
+        if( $handle ?? null ){
+            $read = fread($handle, 2096);
+            echo $read;
+            pclose($handle);
+        }else{
+            //  ...
+            foreach(explode("\n", `ps | grep "{$app}/testcase.php"`) as $line){
+                if( $pos = strpos($line, 'localhost') ){
+                    $pos = strpos($line, ' ');
+                    $str = substr($line, 0, $pos);
+                    echo `kill {$str}`;
+                }
+            }
+        }
+
+        //  ...
+        if( $fail ?? null ){
+            //  ...
+            echo $result;
+            throw new Exception("Testcase was failed. ($path)");
         }
 
         //  ...
