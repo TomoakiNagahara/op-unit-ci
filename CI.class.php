@@ -176,6 +176,8 @@ class CI implements IF_UNIT
 
 		//	Do testcase.
 	//	OP::Template('core:/include/ci_testcase.php', $config);
+		// TODO: Remove core:/include/ci_testcase.php later.
+		self::Testcase();
 
 		//	Save Commit ID.
 		self::SaveCommitID();
@@ -420,4 +422,54 @@ class CI implements IF_UNIT
 		$current_dir = OP()->MetaPath()->Encode(getcwd());
 		echo "{$current_dir} - {$message}\n";
 	}
+
+    /** Do the Testcase
+     *
+     * @created     2023-04-25
+     * @return      boolean
+     */
+    static function Testcase() : bool
+    {
+        //  ...
+        $port = '8000';
+        $url  = "http://localhost:{$port}/";
+        $io   = `curl -Ss {$url}`;
+        if( $io === null ){
+            $php = $_SERVER['_'];
+            $app = OP()->MetaPath('app:/');
+            echo "\n";
+            echo "hint: HTTP server is not running: ($url)\n";
+            echo "hint: cd {$app}\n";
+            echo "hint: {$php} -S localhost:{$port} testcase.php";
+            throw new Exception("The testcase was failed.");
+        }
+
+        //  ...
+        foreach( glob('./testcase/*.php') as $path ){
+
+            //  Skip if dot, underscore, lower case.
+            $file   = basename($path);
+            $char   = $file[0];
+            if( $char === '.' or $char === '_' or $char !== strtoupper($char) ){
+                continue;
+            }
+
+            //  Do test via Web.
+            $path   = realpath($path);
+            $path   = OP()->MetaToURL($path);
+            $result = `curl -Ss {$url}?path={$path}`;
+
+            //  If it returns 1, that passes the test.
+            if( $result[0].$result[1] === "1\n" ){
+                continue;
+            }
+
+            //  ...
+            D($result);
+            return false;
+        }
+
+        //  ...
+        return true;
+    }
 }
