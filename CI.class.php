@@ -491,11 +491,17 @@ class CI_Client implements IF_UNIT
 		require_once(__DIR__.'/function/CIConfig.php');
 		$configs = CI\CIConfig($obj);
 
+        //  Get skip method.
+        $skip = OP()->Request('skip');
+
 		//	...
 		foreach( $methods as $method ){
 			//	Skip method
 			switch( $method ){
-				//	Magic method
+                //  Can skip method only once by argument.
+                case ($method === $skip):
+
+                //	CI relative method is skip.
 				case (strpos($method, '__') === 0 ) ? true: false;
 				case 'CI':
 				case 'CI_AllMethods':
