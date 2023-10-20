@@ -560,10 +560,17 @@ class CI_Client implements IF_UNIT
 				*/
 				echo "\n";
 				echo 'Expect: ';
+				var_dump($expect);
+				/*
 				\OP\UNIT\Dump::MarkPlain($expect, []);
+				*/
 				echo "\n";
 				echo 'Result: ';
+				var_dump($result);
+				/*
 				\OP\UNIT\Dump::MarkPlain($result, []);
+				*/
+
 				echo "\n";
 
                 //  ...
