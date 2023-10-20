@@ -427,9 +427,15 @@ class CI_Client implements IF_UNIT
 				continue;
 			}
 
-			//	Instantiate Object from class.
-			$class = $namespace.basename($file, '.class.php');
-			$obj = new $class();
+            //  Include class file.
+            require_once($file);
+
+            //  Cut of name.
+            $name = basename($file, '.class.php');
+
+            //  Instantiate Object from class.
+            $class = $namespace . $name;
+            $obj = new $class();
 
 			//	Inspect each instantiate object.
             if(!self::CI_Class($obj) ){
