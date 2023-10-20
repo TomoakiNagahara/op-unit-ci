@@ -437,6 +437,11 @@ class CI_Client implements IF_UNIT
             $class = $namespace . $name;
             $obj = new $class();
 
+            /*
+            //  Include config file.
+            $configs = OP()->Template("./ci/{$name}.php");
+            */
+
 			//	Inspect each instantiate object.
             if(!self::CI_Class($obj) ){
                 return false;
