@@ -431,11 +431,18 @@ class CI implements IF_UNIT
     static function Testcase() : bool
     {
         //  ...
+        $fail = false;
         $port = rand(8900,8999);
         $url  = "localhost:{$port}";
         $php  = $_SERVER['_'];
         $app  = OP()->MetaPath('app:/');
 
+        //  ...
+        if(!$handle = self::_TestcaseServer($php, $url, $port, $app) ){
+            return false;
+        }
+
+        /*
         //  ...
         $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
 
@@ -447,13 +454,13 @@ class CI implements IF_UNIT
         }
 
         //  Connection test.
-        for($i=0; $i<100; $i++){
+        for($i=0; $i<10; $i++){
             //  ...
             if( $io = `curl -Ss http://{$url}` ){
                 //  ...
                 echo "#{$i} Waiting http://{$url}\n";
                 //  ...
-                sleep(10);
+                sleep(1);
             }
         }
         if( $io === null ){
@@ -463,6 +470,7 @@ class CI implements IF_UNIT
             echo "hint: {$php} -S localhost:{$port} testcase.php";
             throw new Exception("The testcase was failed.");
         }
+        */
 
         //  ...
         foreach( glob('./testcase/*.php') as $path ){
@@ -490,6 +498,7 @@ class CI implements IF_UNIT
         }
 
         /* @var $handle resource */
+        /*
         if( $handle ?? null ){
             $read = fread($handle, 2096);
             echo $read;
@@ -504,15 +513,58 @@ class CI implements IF_UNIT
                 }
             }
         }
+        */
 
         //  ...
-        if( $fail ?? null ){
-            //  ...
-            echo $result;
-            throw new Exception("Testcase was failed. ($path)");
+        if( $fail ){
+            echo "Testcase was failed. ($path)";
+            var_dump($result);
         }
 
         //  ...
-        return true;
+        return !$fail;
+    }
+
+    static private function _TestcaseServer($php, $app, $url, $port)
+    {
+        //  ...
+        $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
+        $handle = popen($exec, 'r');
+
+        //  Connection test.
+        for($i=0; $i<10; $i++){
+            //  ...
+            if( $io = `curl -Ss http://{$url}` ){
+                break;
+            }else{
+                //  ...
+                echo "#{$i} Waiting http://{$url}\n";
+                //  ...
+                sleep(1);
+            }
+        }
+
+        //  ...
+        if( $io === null ){
+            //  ...
+            self::_TestcaseServerDown($handle);
+
+            //  ...
+            echo "\n";
+            echo "app:/testcase.php could not boot.\n";
+            echo "hint: HTTP server is not running: ($url)\n";
+            echo "hint: cd {$app}\n";
+            echo "hint: {$php} -S localhost:{$port} testcase.php";
+        }
+
+        //  ...
+        return $handle;
+    }
+
+    static private function _TestcaseServerDown($handle)
+    {
+        $read = fread($handle, 2096);
+        echo $read;
+        pclose($handle);
     }
 }
