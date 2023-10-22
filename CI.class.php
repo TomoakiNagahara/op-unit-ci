@@ -446,15 +446,14 @@ class CI implements IF_UNIT
             $handle = popen($exec, 'r');
         }
 
-        //  ...
-        usleep(10);
-        //echo $exec."\n";
-
         //  Connection test.
-        for($i=0; $i<10; $i++){
+        for($i=0; $i<100; $i++){
             //  ...
             if( $io = `curl -Ss http://{$url}` ){
-                break;
+                //  ...
+                echo "#{$i} Waiting http://{$url}\n";
+                //  ...
+                sleep(10);
             }
         }
         if( $io === null ){
