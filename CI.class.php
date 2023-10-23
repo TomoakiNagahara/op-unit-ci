@@ -521,7 +521,7 @@ class CI implements IF_UNIT
 
         //  ...
         if( $fail ){
-            var_dump($result);
+            D($result);
             throw new Exception("Testcase was failed. ($path)");
         }
 
@@ -529,6 +529,16 @@ class CI implements IF_UNIT
         return !$fail;
     }
 
+    /** Boot testcase web server.
+     *
+     * @created     2023-10-23
+     * @param       string      $php
+     * @param       string      $app
+     * @param       string      $url
+     * @param       integer     $port
+     * @throws      Exception
+     * @return      resource
+     */
     static private function _TestcaseServer($php, $app, $url, $port)
     {
         //  ...
@@ -571,6 +581,11 @@ class CI implements IF_UNIT
         return $handle;
     }
 
+    /** Shutdown testcase web server.
+     *
+     * @created     2023-10-23
+     * @param       resource    $handle
+     */
     static private function _TestcaseServerDown($handle)
     {
         $read = fread($handle, 2096);
