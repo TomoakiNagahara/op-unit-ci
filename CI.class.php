@@ -438,9 +438,7 @@ class CI implements IF_UNIT
         $app  = OP()->MetaPath('app:/');
 
         //  ...
-        if(!$handle = self::_TestcaseServer($php, $url, $port, $app) ){
-            return false;
-        }
+        $handle = self::_TestcaseServer($php, $app, $url, $port);
 
         /*
         //  ...
@@ -483,8 +481,11 @@ class CI implements IF_UNIT
             }
 
             //  Do test via Web.
+            /*
+            $path   = OP()->MetaToURL($path);
+            */
             $path   = realpath($path);
-            $path   = OP()->MetaURL($path);
+            $path   = OP()->MetaFromPath($path);
             $result = `curl -Ss {$url}?path={$path}`;
 
             //  If it returns 1, that passes the test.
@@ -516,9 +517,12 @@ class CI implements IF_UNIT
         */
 
         //  ...
+        self::_TestcaseServerDown($handle);
+
+        //  ...
         if( $fail ){
-            echo "Testcase was failed. ($path)";
             var_dump($result);
+            throw new Exception("Testcase was failed. ($path)");
         }
 
         //  ...
@@ -531,16 +535,22 @@ class CI implements IF_UNIT
         $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
         $handle = popen($exec, 'r');
 
+        //  ...
+        if( OP()->Request('debug') ){
+            D($php, $app, $url, $port);
+        }
+
         //  Connection test.
-        for($i=0; $i<10; $i++){
+        for($i=1; $i<10; $i++){
+            //  ...
+            usleep(10);
+
             //  ...
             if( $io = `curl -Ss http://{$url}` ){
                 break;
             }else{
                 //  ...
                 echo "#{$i} Waiting http://{$url}\n";
-                //  ...
-                sleep(1);
             }
         }
 
@@ -551,10 +561,10 @@ class CI implements IF_UNIT
 
             //  ...
             echo "\n";
-            echo "app:/testcase.php could not boot.\n";
             echo "hint: HTTP server is not running: ($url)\n";
             echo "hint: cd {$app}\n";
             echo "hint: {$php} -S localhost:{$port} testcase.php";
+            throw new Exception("app:/testcase.php could not boot.\n");
         }
 
         //  ...
