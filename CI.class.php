@@ -25,6 +25,7 @@ use Exception;
 use OP\IF_UNIT;
 use OP\OP_CORE;
 use OP\OP_CI;
+use function OP\RootPath;
 
 /** ci
  *
@@ -138,15 +139,19 @@ class CI implements IF_UNIT
 	 */
 	static function CI()
 	{
-		//	Get namespace
-		$current = getcwd().'/';
-		if( $current === OP()->MetaRoot('core') ){
-			$namespace = 'OP\\';
-		}else if( dirname($current).'/' === OP()->MetaRoot('unit') ){
-			$namespace = 'OP\UNIT\\';
-		}else{
-			$namespace = 'OP\MODULE\\';
-		}
+        //  Init
+        $curr_dir = realpath( getcwd().'/'     );
+        $core_dir = realpath( RootPath('core') );
+        $unit_dir = realpath( RootPath('unit') );
+
+        //	Get namespace
+        if( $curr_dir === $core_dir ){
+            $namespace = 'OP\\';
+        }else if( $curr_dir === $unit_dir ){
+            $namespace = 'OP\UNIT\\';
+        }else{
+            $namespace = 'OP\MODULE\\';
+        }
 
 		//	You can specify and inspect only a specific class.
 		if( $class_list = OP()->Request('class') ){
