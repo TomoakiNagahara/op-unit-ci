@@ -25,6 +25,7 @@ use Exception;
 use OP\IF_UNIT;
 use OP\OP_CORE;
 use OP\OP_CI;
+use OP\DebugBacktrace;
 use function OP\RootPath;
 
 /** ci
@@ -279,7 +280,10 @@ class CI implements IF_UNIT
 					foreach( $traces as $trace){
 						$i--;
 						$n = str_pad((string)$i, 2, ' ', STR_PAD_LEFT);
+						/*
 						echo "$n: ".OP()->DebugBacktraceToString($trace)."\n";
+						*/
+						echo "$n: ".DebugBacktrace::Numerator($trace)."\n";
 					}
 				}
 
