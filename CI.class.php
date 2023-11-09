@@ -562,7 +562,10 @@ class CI implements IF_UNIT
         //  Connection test.
         for($i=1; $i<10; $i++){
             //  ...
-            usleep(10);
+            $usleep = 20 * $i;
+
+            //  ...
+            usleep($usleep);
 
             //  ...
             if( $io = `curl -Ss http://{$url}` ){
