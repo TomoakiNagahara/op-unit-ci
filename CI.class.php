@@ -183,7 +183,7 @@ class CI implements IF_UNIT
 		//	Do testcase.
 	//	OP::Template('core:/include/ci_testcase.php', $config);
 		// TODO: Remove core:/include/ci_testcase.php later.
-		self::Testcase();
+		$this->Testcase();
 
 		//	Save Commit ID.
 		self::SaveCommitID();
@@ -432,12 +432,12 @@ class CI implements IF_UNIT
 		echo "{$current_dir} - {$message}\n";
 	}
 
-    /** Do the Testcase
+    /** Do the Testcase.
      *
      * @created     2023-04-25
      * @return      boolean
      */
-    static function Testcase() : bool
+    function Testcase() : bool
     {
         //  ...
         $fail = false;
