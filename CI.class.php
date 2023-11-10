@@ -56,6 +56,14 @@ class CI implements IF_UNIT
 	 */
 	private $_server;
 
+    /** Destruct
+     *
+     */
+    function __destruct()
+    {
+        $this->_TestcaseServerDown();
+    }
+
 	/** Set Config.
 	 *
 	 * @created    2022-10-15
