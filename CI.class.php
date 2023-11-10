@@ -561,7 +561,9 @@ class CI implements IF_UNIT
     private function _TestcaseServer($php, $app, $url, $port)
     {
         //  ...
-        $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
+        $path = $app . '/testcase.php';
+    //  $path = realpath($path);
+        $exec = "{$php} -S {$url} {$path} > /dev/null 2>&1 &";
         $this->_TestcaseKill($path);
         $this->_server = popen($exec, 'r');
 
@@ -573,7 +575,7 @@ class CI implements IF_UNIT
         //  Connection test.
         for($i=1; $i<10; $i++){
             //  ...
-            $usleep = 20 * $i;
+            $usleep = (20 * $i) * $i;
 
             //  ...
             usleep($usleep);
@@ -583,17 +585,19 @@ class CI implements IF_UNIT
                 break;
             }else{
                 //  ...
-                echo "#{$i} Waiting http://{$url}\n";
+                echo "#{$i} Waiting({$usleep}) http://{$url}\n";
             }
         }
 
         //  ...
         if( $io === null ){
+            /*
             //  ...
             echo "\n";
             echo "hint: HTTP server is not running: ($url)\n";
             echo "hint: cd {$app}\n";
             echo "hint: {$php} -S localhost:{$port} testcase.php";
+            */
             throw new Exception("app:/testcase.php could not boot.\n");
         }
     }
