@@ -101,7 +101,7 @@ class CI implements IF_UNIT
 	 */
 	function Auto()
 	{
-		if( self::Init() ){
+		if( $this->Init() ){
 			self::CI();
 		}
 	}
@@ -110,7 +110,7 @@ class CI implements IF_UNIT
 	 *
 	 * @created    2023-02-05
 	 */
-	static function Init()
+	function Init()
 	{
 		//	...
 		if( file_exists('.ci_skip') ){
