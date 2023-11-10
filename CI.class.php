@@ -99,7 +99,7 @@ class CI implements IF_UNIT
 	/** Automatically CI
 	 *
 	 */
-	static function Auto()
+	function Auto()
 	{
 		if( self::Init() ){
 			self::CI();
