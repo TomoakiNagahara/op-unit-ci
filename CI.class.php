@@ -447,7 +447,7 @@ class CI implements IF_UNIT
         $app  = OP()->MetaPath('app:/');
 
         //  ...
-        $handle = self::_TestcaseServer($php, $app, $url, $port);
+        $handle = $this->_TestcaseServer($php, $app, $url, $port);
 
         /*
         //  ...
@@ -548,7 +548,7 @@ class CI implements IF_UNIT
      * @throws      Exception
      * @return      resource
      */
-    static private function _TestcaseServer($php, $app, $url, $port)
+    private function _TestcaseServer($php, $app, $url, $port)
     {
         //  ...
         $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
