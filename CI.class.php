@@ -50,6 +50,12 @@ class CI implements IF_UNIT
 	 */
 	private $_config;
 
+	/** PHP Built-in server process resource.
+	 *
+	 * @var resource
+	 */
+	private $_server;
+
 	/** Set Config.
 	 *
 	 * @created    2022-10-15
@@ -447,7 +453,7 @@ class CI implements IF_UNIT
         $app  = OP()->MetaPath('app:/');
 
         //  ...
-        $handle = $this->_TestcaseServer($php, $app, $url, $port);
+        $this->_TestcaseServer($php, $app, $url, $port);
 
         /*
         //  ...
@@ -526,9 +532,6 @@ class CI implements IF_UNIT
         */
 
         //  ...
-        $this->_TestcaseServerDown($handle);
-
-        //  ...
         if( $fail ){
             D($result);
             throw new Exception("Testcase was failed. ($path)");
@@ -546,13 +549,12 @@ class CI implements IF_UNIT
      * @param       string      $url
      * @param       integer     $port
      * @throws      Exception
-     * @return      resource
      */
     private function _TestcaseServer($php, $app, $url, $port)
     {
         //  ...
         $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
-        $handle = popen($exec, 'r');
+        $this->_server = popen($exec, 'r');
 
         //  ...
         if( OP()->Request('debug') ){
@@ -579,29 +581,23 @@ class CI implements IF_UNIT
         //  ...
         if( $io === null ){
             //  ...
-            $this->_TestcaseServerDown($handle);
-
-            //  ...
             echo "\n";
             echo "hint: HTTP server is not running: ($url)\n";
             echo "hint: cd {$app}\n";
             echo "hint: {$php} -S localhost:{$port} testcase.php";
             throw new Exception("app:/testcase.php could not boot.\n");
         }
-
-        //  ...
-        return $handle;
     }
 
     /** Shutdown testcase web server.
      *
      * @created     2023-10-23
-     * @param       resource    $handle
      */
-    private function _TestcaseServerDown($handle)
+    private function _TestcaseServerDown()
     {
-        $read = fread($handle, 2096);
-        echo $read;
-        pclose($handle);
+        if( $this->_server ){
+            echo fread($this->_server, 2096);
+            pclose($this->_server);
+        }
     }
 }
