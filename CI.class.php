@@ -526,7 +526,7 @@ class CI implements IF_UNIT
         */
 
         //  ...
-        self::_TestcaseServerDown($handle);
+        $this->_TestcaseServerDown($handle);
 
         //  ...
         if( $fail ){
@@ -579,7 +579,7 @@ class CI implements IF_UNIT
         //  ...
         if( $io === null ){
             //  ...
-            self::_TestcaseServerDown($handle);
+            $this->_TestcaseServerDown($handle);
 
             //  ...
             echo "\n";
@@ -598,7 +598,7 @@ class CI implements IF_UNIT
      * @created     2023-10-23
      * @param       resource    $handle
      */
-    static private function _TestcaseServerDown($handle)
+    private function _TestcaseServerDown($handle)
     {
         $read = fread($handle, 2096);
         echo $read;
