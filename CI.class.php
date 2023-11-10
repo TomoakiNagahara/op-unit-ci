@@ -102,7 +102,7 @@ class CI implements IF_UNIT
 	function Auto()
 	{
 		if( $this->Init() ){
-			self::CI();
+			$this->CI();
 		}
 	}
 
@@ -138,7 +138,7 @@ class CI implements IF_UNIT
 	 *
 	 * @created    2023-02-05
 	 */
-	static function CI()
+	function CI()
 	{
         //  Init
         $curr_dir = realpath( getcwd().'/'     );
