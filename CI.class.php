@@ -554,6 +554,7 @@ class CI implements IF_UNIT
     {
         //  ...
         $exec = "{$php} -S {$url} {$app}/testcase.php > /dev/null 2>&1 &";
+        $this->_TestcaseKill($path);
         $this->_server = popen($exec, 'r');
 
         //  ...
@@ -598,6 +599,35 @@ class CI implements IF_UNIT
         if( $this->_server ){
             echo fread($this->_server, 2096);
             pclose($this->_server);
+        }
+    }
+
+    /** Kill zombie processes.
+     *
+     * @created     2023-11-10
+     * @param       string      $path
+     */
+    private function _TestcaseKill(string $path)
+    {
+        $exec = "ps -A | grep $path";
+        $list = [];
+        $exit = 0;
+        $temp = exec($exec, $list, $exit);
+        if( $exit ){
+            D($exec, $exit, $temp);
+            return;
+        }
+        foreach($list as $line){
+            $match = [];
+            if(!strpos($line, ' -S localhost:89') ){
+                continue;
+            }
+            if(!preg_match('/^(\d+) .+/', $line, $match) ){
+                continue;
+            }
+            $pnum = $match[1];
+            D('Kill --> '.$line);
+            `kill {$pnum}`;
         }
     }
 }
