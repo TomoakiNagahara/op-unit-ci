@@ -374,6 +374,11 @@ class CI implements IF_UNIT
 	 */
 	static function SaveCommitID():void
 	{
+        //  ...
+        if( self::Dryrun() ){
+            return;
+        }
+
 		//	...
 		$branch    = self::Git()->CurrentBranch();
 		$commit_id = self::Git()->CurrentCommitID();
