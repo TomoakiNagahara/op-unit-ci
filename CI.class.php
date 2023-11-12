@@ -224,7 +224,9 @@ class CI implements IF_UNIT
 		//	Do testcase.
 	//	OP::Template('core:/include/ci_testcase.php', $config);
 		// TODO: Remove core:/include/ci_testcase.php later.
-		$this->Testcase();
+        if( OP()->Request('testcase') ){
+            $this->Testcase();
+        }
 
 		//	Save Commit ID.
 		self::SaveCommitID();
