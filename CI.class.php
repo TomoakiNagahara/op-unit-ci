@@ -298,9 +298,9 @@ class CI implements IF_UNIT
 	 * @param      object      $obj
 	 * @param      string      $method
 	 * @param      array       $configs
-	 * @throws \Exception
+	 * @return     boolean     $io
 	 */
-	static function CI_Method(object $obj, string $method, array $configs)
+	static function CI_Method(object $obj, string $method, array $configs) : bool
 	{
 		//	Inspect each args
 		foreach( $configs as $config ){
@@ -346,11 +346,13 @@ class CI implements IF_UNIT
 					}
 				}
 
-				//	...
-				$class = get_class($obj);
-				throw new \Exception("{$class}->{$method}(): Unmatch result.");
+				//  ...
+				return false;
 			}
 		}
+
+		//  ...
+		return true;
 	}
 
 	/** CI Class Method each Arguments.
