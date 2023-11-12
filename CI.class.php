@@ -242,13 +242,18 @@ class CI implements IF_UNIT
 	 *
 	 * @created    2023-02-10
 	 * @param      object      $obj
+	 * @return     boolean     $io
 	 */
-	static function CI_Class(object $obj)
+	static function CI_Class(object $obj) : bool
 	{
 		//	...
 		if(!isset(class_uses($obj, false)['OP\OP_CI']) ){
 			$class_name = get_class($obj);
+			/*
 			throw new Exception("This object has not use OP_CI. ({$class_name})");
+			*/
+			echo "This object has not use OP_CI. ({$class_name})\n";
+			return false;
 		}
 
 		//	You can specify and inspect onnly a specific method.
@@ -278,8 +283,13 @@ class CI implements IF_UNIT
 			}
 
 			//	Inspect each method.
-			self::CI_Method($obj, $method, $configs[$method] ?? [[]]);
+            if(!self::CI_Method($obj, $method, $configs[$method] ?? [[]]) ){
+                return false;
+            }
 		}
+
+        //  ...
+        return true;
 	}
 
 	/** CI Class each Methods.
