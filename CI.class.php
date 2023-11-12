@@ -178,8 +178,9 @@ class CI implements IF_UNIT
 	/** CI
 	 *
 	 * @created    2023-02-05
+	 * @return     boolean
 	 */
-	function CI()
+	function CI() : bool
 	{
         //  Init
         $curr_dir = realpath( getcwd().'/'     );
@@ -218,7 +219,9 @@ class CI implements IF_UNIT
 			$obj = new $class();
 
 			//	Inspect each instantiate object.
-			self::CI_Class($obj);
+            if(!self::CI_Class($obj) ){
+                return false;
+            }
 		}
 
 		//	Do testcase.
@@ -230,6 +233,9 @@ class CI implements IF_UNIT
 
 		//	Save Commit ID.
 		self::SaveCommitID();
+
+        //  ...
+        return true;
 	}
 
 	/** CI each Classes.
