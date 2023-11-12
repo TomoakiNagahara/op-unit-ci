@@ -56,6 +56,26 @@ class CI implements IF_UNIT
 	 */
 	private $_server;
 
+    /** Save git stash saved.
+     *
+     * @created     2022-11-12
+     * @var         boolean
+     */
+    private $_git_stash_save;
+
+    /** Construct
+     *
+     * @created     2022-11-12
+     */
+    function __construct()
+    {
+        //  If you set the dry-run to a true value.
+        if(!self::Dryrun() ){
+            //  Git stash save
+            $this->_git_stash_save = OP()->Unit('Git')->Stash()->Save();
+        }
+    }
+
     /** Destruct
      *
      */
