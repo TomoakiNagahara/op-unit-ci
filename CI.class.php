@@ -337,6 +337,21 @@ class CI implements IF_UNIT
 				echo "\n";
 				echo 'Result: ';
 				\OP\UNIT\Dump::MarkPlain($result, []);
+				echo "\n";
+
+                //  ...
+                if( is_string($expect) and is_string($result) ){
+                    $match = '';
+                    for($i=0, $len=strlen($expect); $i<$len; $i++){
+                        if( $expect[$i] === $result[$i] ){
+                            $match .= $expect[$i];
+                        }else{
+                            $match .= '^';
+                            break;
+                        }
+                    }
+                    echo "Hint..: \"{$match}\"\n\n";
+                }
 
 				//	...
 				if( $traces ){
