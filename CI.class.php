@@ -321,10 +321,16 @@ class CI implements IF_UNIT
 
 			//	...
 			if( $result !== $expect ){
+                //  ...
+                $class = get_class($obj);
+                echo "\n{$class}->{$method}(".serialize($args).") is unmatch expect and result.\n";
+
 				//	...
+				/*
 				echo "\n";
 				echo 'Config: ';
 				\OP\UNIT\Dump::MarkPlain($config, []);
+				*/
 				echo "\n";
 				echo 'Expect: ';
 				\OP\UNIT\Dump::MarkPlain($expect, []);
@@ -335,7 +341,9 @@ class CI implements IF_UNIT
 				//	...
 				if( $traces ){
 					$i = count($traces);
+					/*
 					echo "\n{$result}\n\n";
+					*/
 					foreach( $traces as $trace){
 						$i--;
 						$n = str_pad((string)$i, 2, ' ', STR_PAD_LEFT);
