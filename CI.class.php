@@ -642,4 +642,13 @@ class CI implements IF_UNIT
             `kill {$pnum}`;
         }
     }
+
+    /** Dry run check.
+     *
+     * @return boolean
+     */
+    static function Dryrun() : bool
+    {
+        return OP()->Request('dry-run') ? true: false;
+    }
 }
