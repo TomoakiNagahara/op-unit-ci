@@ -78,10 +78,17 @@ class CI implements IF_UNIT
 
     /** Destruct
      *
+     * @created     2022-11-10
      */
     function __destruct()
     {
+        //  ...
         $this->_TestcaseServerDown();
+
+        //  Git stash pop
+        if( $this->_git_stash_save ){
+            OP()->Unit('Git')->Stash()->Pop();
+        }
     }
 
 	/** Set Config.
