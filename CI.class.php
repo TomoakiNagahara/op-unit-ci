@@ -190,7 +190,7 @@ class CI implements IF_UNIT
         //	Get namespace
         if( $curr_dir === $core_dir ){
             $namespace = 'OP\\';
-        }else if( $curr_dir === $unit_dir ){
+        }else if( strpos($curr_dir, $unit_dir) === 0 ){
             $namespace = 'OP\UNIT\\';
         }else{
             $namespace = 'OP\MODULE\\';
