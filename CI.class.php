@@ -24,13 +24,12 @@ namespace OP\UNIT;
 use Exception;
 use OP\IF_UNIT;
 use OP\OP_CORE;
-use OP\OP_CI;
 use OP\DebugBacktrace;
 use function OP\RootPath;
 
 /** ci
  *
- * @created    2023-01-30
+ * @created    2023-11-21
  * @version    1.0
  * @package    op-unit-ci
  * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -41,7 +40,7 @@ class CI implements IF_UNIT
 	/** use
 	 *
 	 */
-	use OP_CORE, OP_CI;
+	use OP_CORE;
 
 	/** Config
 	 *
@@ -52,16 +51,18 @@ class CI implements IF_UNIT
 
 	/** PHP Built-in server process resource.
 	 *
+	 * @deprecated	2023-11-23
 	 * @var resource
 	 */
-	private $_server;
+//	private $_server;
 
     /** Save git stash saved.
      *
+	 * @deprecated	2023-11-23
      * @created     2022-11-12
      * @var         boolean
      */
-    private $_git_stash_save;
+//  private $_git_stash_save;
 
     /** Construct
      *
@@ -69,11 +70,6 @@ class CI implements IF_UNIT
      */
     function __construct()
     {
-        //  If you set the dry-run to a true value.
-        if(!self::Dryrun() ){
-            //  Git stash save
-            $this->_git_stash_save = OP()->Unit('Git')->Stash()->Save();
-        }
     }
 
     /** Destruct
@@ -82,14 +78,117 @@ class CI implements IF_UNIT
      */
     function __destruct()
     {
-        //  ...
-        $this->_TestcaseServerDown();
-
-        //  Git stash pop
-        if( $this->_git_stash_save ){
-            OP()->Unit('Git')->Stash()->Pop();
-        }
     }
+
+	/** Automatically code inspection.
+	 *
+	 * @created     2023-11-21
+	 */
+	function Auto() : bool
+	{
+		//	...
+		if( OP()->Request('all') ?? 1 ){
+			$io = self::All();
+		}else{
+			$io = self::Single();
+		}
+
+		//	...
+		return $io;
+	}
+
+	/** All submodules code inspection.
+	 *
+	 * @created     2023-11-20
+	 * @return      bool
+	 */
+	static function All() : bool
+	{
+		//	...
+		$save_dir = getcwd();
+
+		//	...
+		try{
+			//	Get config from .gitmodules
+			$configs = self::Git()->SubmoduleConfig();
+
+			//	Each submodule repositories.
+			foreach( $configs as $config ){
+				$path = $config['path'];
+				chdir(RootPath('git') . $path);
+
+				//	...
+				if(!$io = self::Single() ){
+					break;
+				}
+			}
+
+			//	Main repository.
+			if( $io ){
+				chdir(RootPath('git'));
+				$io = self::Single();
+			}
+		}catch( \Exception $e ){
+			OP()->Notice($e);
+		}
+
+		//	...
+		chdir($save_dir);
+
+		//	...
+		return $io;
+	}
+
+	/** Single submodule code inspection.
+	 *
+	 * @created     2023-11-20
+	 * @return      bool
+	 */
+	static function Single() : bool
+	{
+		//	...
+		if(!self::Dryrun() ){
+			if( $git_stash_save = self::Git()->Stash()->Save() ){
+				CI_Client::Display('git stash save');
+			}
+		}
+
+		//	...
+		try{
+			$io = CI_Client::Auto();
+		}catch( \Exception $e ){
+			OP()->Notice($e);
+		}
+
+		//  Git stash pop
+		if( $git_stash_save ?? null ){
+			CI_Client::Display('git stash pop');
+			self::Git()->Stash()->Pop();
+		}
+
+		//	...
+		return $io ?? false;
+	}
+
+	/** Check dry-run argument value.
+	 *
+	 * @created	 2023-11-22
+	 * @return	 boolean
+	 */
+	static function Dryrun()
+	{
+		return CI_Client::Dryrun();
+	}
+
+	/** Return OP\UNIT\Git
+	 *
+	 * @created     2023-11-21
+	 * @return      Git
+	 */
+	static function Git() : Git
+	{
+		return OP()->Unit('Git');
+	}
 
 	/** Set Config.
 	 *
@@ -113,7 +212,7 @@ class CI implements IF_UNIT
 	 * @moved      2023-02-22 op-core:/CI.class.php
 	 * @return     array      $config
 	 */
-	function GenerateConfig():array
+	function GenerateConfig() : array
 	{
 		//	Swap config.
 		$config = $this->_config;
@@ -122,6 +221,34 @@ class CI implements IF_UNIT
 		//	Return config.
 		return $config;
 	}
+
+	/** Generate inspection file name.
+	 *
+	 * @created	 2023-11-21
+	 * @param	 string		 $branch
+	 * @return	 string
+	 */
+	static function GenerateFilename(string $branch='') : string
+	{
+		return CI_Client::GenerateFilename($branch);
+	}
+}
+
+/** ci
+ *
+ * @created    2023-01-30
+ * @renamed    2023-11-21   CI --> CI_Client
+ * @version    1.0
+ * @package    op-unit-ci
+ * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright  Tomoaki Nagahara All right reserved.
+ */
+class CI_Client implements IF_UNIT
+{
+	/** use
+	 *
+	 */
+	use OP_CORE;
 
 	/** Git
 	 *
@@ -139,37 +266,45 @@ class CI implements IF_UNIT
 
 	/** Automatically CI
 	 *
+	 * @return	 bool
 	 */
-	function Auto()
+	static function Auto() : bool
 	{
-		if( $this->Init() ){
-			$this->CI();
+		if( $io = self::Init() ){
+			$io = self::CI();
+		}else{
+			$io = true;
 		}
+		return $io;
 	}
 
 	/** Init
 	 *
 	 * @created    2023-02-05
+	 * @return     bool       If true, CI is necessary.
 	 */
-	function Init()
+	static function Init() : bool
 	{
 		//	...
 		if( file_exists('.ci_skip') ){
 			self::Display('Found .ci_skip file.');
 			self::SaveCommitID();
-			return;
+			return false;
 		}
 
 		//	...
 		if(!file_exists('.git') ){
 			$current = getcwd();
-			throw new Exception("Does not found .git directory.(current={$current})");
+			OP()->Notice("Does not found .git directory.(current={$current})");
+			return false;
 		}
 
+		/*
 		//	...
 		if( self::CheckCommitID() ){
-			return;
+			return false;
 		}
+		*/
 
 		//	...
 		return true;
@@ -180,7 +315,7 @@ class CI implements IF_UNIT
 	 * @created    2023-02-05
 	 * @return     boolean
 	 */
-	function CI() : bool
+	static function CI() : bool
 	{
         //  Init
         $curr_dir = realpath( getcwd().'/'     );
@@ -224,12 +359,14 @@ class CI implements IF_UNIT
             }
 		}
 
+        /*
 		//	Do testcase.
 	//	OP::Template('core:/include/ci_testcase.php', $config);
 		// TODO: Remove core:/include/ci_testcase.php later.
         if( OP()->Request('testcase') ){
             $this->Testcase();
         }
+        */
 
 		//	Save Commit ID.
 		self::SaveCommitID();
@@ -455,6 +592,15 @@ class CI implements IF_UNIT
 		$file_name = self::GenerateFilename();
 
 		//	...
+		if( file_exists($file_name) ){
+			$saved_id  = file_get_contents($file_name);
+			if( $commit_id === $saved_id ){
+				self::Display("This branch is already inspected. ($branch)");
+				return;
+			}
+		}
+
+		//	...
 		file_put_contents($file_name, $commit_id);
 
 		//	...
@@ -464,7 +610,7 @@ class CI implements IF_UNIT
 	/** Check if current commit id and saved commit id then already checked.
 	 *
 	 * @created    2023-02-10
-	 * @return     boolean
+	 * @return     boolean		true is already inspected.
 	 */
 	static function CheckCommitID():bool
 	{
@@ -505,6 +651,7 @@ class CI implements IF_UNIT
 	{
 		//	...
 		static $_display = null;
+		static $_padding = 0;
 
 		//	...
 		if( $_display === null ){
@@ -518,6 +665,10 @@ class CI implements IF_UNIT
 
 		//	...
 		$current_dir = OP()->MetaPath()->Encode(getcwd());
+		if( $_padding < strlen($current_dir) ){
+			$_padding = strlen($current_dir);
+		}
+		$current_dir = str_pad($current_dir, $_padding, ' ', STR_PAD_RIGHT);
 		echo "{$current_dir} - {$message}\n";
 	}
 
