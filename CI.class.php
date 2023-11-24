@@ -705,7 +705,7 @@ class CI_Client implements IF_UNIT
 	{
 		//	...
 		static $_display = null;
-		static $_padding = 0;
+		static $_padding = 15;
 
 		//	...
 		if( $_display === null ){
