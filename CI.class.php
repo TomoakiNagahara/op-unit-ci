@@ -86,6 +86,9 @@ class CI implements IF_UNIT
 	 */
 	function Auto() : bool
 	{
+		//	Save
+		$status = self::GitStashSave();
+
 		//	...
 		if( OP()->Request('all') ?? 1 ){
 			$io = self::All();
@@ -93,8 +96,72 @@ class CI implements IF_UNIT
 			$io = self::Single();
 		}
 
+		//	Pop
+		self::GitStashPop($status);
+
 		//	...
 		return $io;
+	}
+
+	/** Git stash save to all repositories.
+	 *
+	 * @created		2023-11-24
+	 * @return		array
+	 */
+	static function GitStashSave(): array
+	{
+		//	...
+		$status = [];
+
+		//	...
+		if( self::Dryrun() ){
+			return $status;
+		}
+
+		//	...
+		$git_root = RootPath('git');
+
+		//	...
+		$configs = self::Git()->SubmoduleConfig();
+
+		//	...
+		foreach( $configs as $config ){
+			//	...
+			$path = $config['path'];
+			//	...
+			chdir($git_root . $path);
+			//	...
+			if( self::Git()->Stash()->Save() ){
+				//	...
+				CI_Client::Display("git stash save : {$path}");
+
+				//	...
+				$temp['path'] = $path;
+				$status[] = $temp;
+			}
+		}
+
+		//	...
+		return $status;
+	}
+
+	/** Git stash pop to saved repositories.
+	 *
+	 * @created		2023-11-24
+	 * @param		array		$status
+	 */
+	static function GitStashPop(array $status) : void
+	{
+		//	...
+		$git_root = RootPath('git');
+
+		//	...
+		foreach( $status as $state ){
+			$path = $state['path'];
+			chdir($git_root . $path);
+			self::Git()->Stash()->Pop();
+			CI_Client::Display("git stash pop : {$path}");
+		}
 	}
 
 	/** All submodules code inspection.
@@ -147,23 +214,10 @@ class CI implements IF_UNIT
 	static function Single() : bool
 	{
 		//	...
-		if(!self::Dryrun() ){
-			if( $git_stash_save = self::Git()->Stash()->Save() ){
-				CI_Client::Display('git stash save');
-			}
-		}
-
-		//	...
 		try{
 			$io = CI_Client::Auto();
 		}catch( \Exception $e ){
 			OP()->Notice($e);
-		}
-
-		//  Git stash pop
-		if( $git_stash_save ?? null ){
-			CI_Client::Display('git stash pop');
-			self::Git()->Stash()->Pop();
 		}
 
 		//	...
