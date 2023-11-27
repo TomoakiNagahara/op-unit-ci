@@ -165,6 +165,10 @@ class CI implements IF_UNIT
 	 */
 	static function GitStashPop(array $status) : void
 	{
+		try{
+		//	...
+		$current_dir = getcwd();
+
 		//	...
 		$git_root = RootPath('git');
 
@@ -175,6 +179,13 @@ class CI implements IF_UNIT
 			self::Git()->Stash()->Pop();
 			CI_Client::Display("git stash pop : {$path}");
 		}
+		}catch( \Throwable $e ){
+			echo $e->getMessage() . "\n";
+			echo $e->getTraceAsString() . "\n";
+		}
+
+		//	...
+		chdir($current_dir);
 	}
 
 	/** All submodules code inspection.
