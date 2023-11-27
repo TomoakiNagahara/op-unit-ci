@@ -119,6 +119,12 @@ class CI implements IF_UNIT
 		}
 
 		//	...
+		try{
+
+		//	...
+		$current_dir = getcwd();
+
+		//	...
 		$git_root = RootPath('git');
 
 		//	...
@@ -140,6 +146,13 @@ class CI implements IF_UNIT
 				$status[] = $temp;
 			}
 		}
+		}catch( \Throwable $e ){
+			echo $e->getMessage() . "\n";
+			echo $e->getTraceAsString() . "\n";
+		}
+
+		//	...
+		chdir($current_dir);
 
 		//	...
 		return $status;
