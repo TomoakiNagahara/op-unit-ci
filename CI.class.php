@@ -780,6 +780,6 @@ class CI_Client implements IF_UNIT
      */
     static function Dryrun() : bool
     {
-        return OP()->Request('dry-run') ? true: false;
+        return (OP()->Request('test', false) or OP()->Request('dry-run', false)) ? true : false;
     }
 }
