@@ -697,13 +697,20 @@ class CI_Client implements IF_UNIT
 		if( file_exists($file_name) ){
 			$saved_id  = file_get_contents($file_name);
 			if( $commit_id === $saved_id ){
+				/*
 				self::Display("This branch is already inspected. ($branch)");
+				*/
 				return;
 			}
 		}
 
 		//	...
-		file_put_contents($file_name, $commit_id);
+		$io = file_put_contents($file_name, $commit_id);
+		if( $io ){
+			self::Display("Saved current commit id. ($branch, $file_name)");
+		}else{
+			self::Display("Failed save commit id. ($branch, $file_name)");
+		}
 
 		//	...
 		self::Display("{$branch}:{$commit_id} --> {$file_name}");
