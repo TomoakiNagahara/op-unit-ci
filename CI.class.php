@@ -511,6 +511,7 @@ class CI_Client implements IF_UNIT
 				case 'CI':
 				case 'CI_AllMethods':
 				case 'CI_Inspection':
+				case 'Auto':
 					continue 2;
 			}
 
