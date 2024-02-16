@@ -227,7 +227,7 @@ class CI implements IF_UNIT
 		chdir($save_dir);
 
 		//	...
-		return $io;
+		return $io ?? false;
 	}
 
 	/** Single submodule code inspection.
