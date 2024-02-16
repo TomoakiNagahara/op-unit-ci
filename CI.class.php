@@ -203,6 +203,9 @@ class CI implements IF_UNIT
 			//	Get config from .gitmodules
 			$configs = self::Git()->SubmoduleConfig();
 
+			//	...
+			if( $configs ){
+
 			//	Each submodule repositories.
 			foreach( $configs as $config ){
 				$path = $config['path'];
@@ -218,6 +221,8 @@ class CI implements IF_UNIT
 			if( $io ){
 				chdir(RootPath('git'));
 				$io = self::Single();
+			}
+
 			}
 		}catch( \Exception $e ){
 			OP()->Notice($e);
