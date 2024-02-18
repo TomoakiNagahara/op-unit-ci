@@ -3,7 +3,7 @@
  *
  * @created    2023-01-13
  * @moved      2023-02-10 op-core:/function/CI.php
- * @package    op-core
+ * @package    op-unit-ci
  * @version    1.0
  * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright  Tomoaki Nagahara All right reserved.
