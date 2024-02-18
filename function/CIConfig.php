@@ -58,5 +58,11 @@ function CIConfig(&$object) : array
 	$path = ($unit ?? null) ? "{$meta}:/{$unit}/ci/{$name}.php" : "{$meta}:/ci/{$name}.php";
 
 	//	...
+	if(!file_exists( OP()->MetaPath($path) ) ){
+		OP()->Notice("This file is not exist. ($path)");
+		return [];
+	}
+
+	//	...
 	return OP()->Template($path);
 }
