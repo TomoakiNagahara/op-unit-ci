@@ -21,7 +21,6 @@ namespace OP\UNIT;
 /** use
  *
  */
-use Exception;
 use OP\IF_UNIT;
 use OP\OP_CORE;
 use OP\DebugBacktrace;
@@ -224,7 +223,7 @@ class CI implements IF_UNIT
 			}
 
 			}
-		}catch( \Exception $e ){
+		}catch( \Throwable $e ){
 			OP()->Notice($e);
 		}
 
@@ -245,7 +244,7 @@ class CI implements IF_UNIT
 		//	...
 		try{
 			$io = CI_Client::Auto();
-		}catch( \Exception $e ){
+		}catch( \Throwable $e ){
 			OP()->Notice($e);
 		}
 
@@ -657,7 +656,7 @@ class CI_Client implements IF_UNIT
 				$traces = $notice['backtrace'];
 			}
 
-		}catch( \Exception $e ){
+		}catch( \Throwable $e ){
 			//	...
 			$result = 'Exception: '.$e->getMessage();
 			$traces = $e->getTrace();
