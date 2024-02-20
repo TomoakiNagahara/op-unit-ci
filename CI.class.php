@@ -139,7 +139,8 @@ class CI implements IF_UNIT
 		//	...
 		try{
 			//	Get config from .gitmodules
-			$configs = self::Git()->SubmoduleConfig();
+			require_once(__DIR__.'/function/GetSubmoduleConfig.php');
+			$configs = CI\GetSubmoduleConfig();
 
 			//	...
 			if( $configs ){
