@@ -531,7 +531,7 @@ class CI_Client implements IF_UNIT
 
                 //  ...
                 if( is_string($expect) and is_string($result) ){
-                    $match = '';
+                    $match = '            ';
                     for($i=0, $len=strlen($expect); $i<$len; $i++){
                         if( $expect[$i] === $result[$i] ){
                             $match .= $expect[$i];
@@ -540,7 +540,7 @@ class CI_Client implements IF_UNIT
                             break;
                         }
                     }
-                    echo "Hint..: \"{$match}\"\n\n";
+                    echo "Hint..: {$match}\n\n";
                 }
 
 				//	...
