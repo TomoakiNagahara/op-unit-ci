@@ -503,8 +503,10 @@ class CI_Client implements IF_UNIT
 			//	...
 			if( $result !== $expect ){
                 //  ...
+                include_once(__DIR__.'/function/Serialize.php');
                 $class = get_class($obj);
-                echo "\n{$class}->{$method}(".serialize($args).") is unmatch expect and result.\n";
+                $args  = CI\Serialize($args);
+                echo "\n{$class}->{$method}({$args}) is unmatch expect and result.\n";
 
 				//	...
 				/*
