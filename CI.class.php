@@ -440,6 +440,9 @@ class CI_Client implements IF_UNIT
 		//	Get CI Configs for that instance.
 		require_once(__DIR__.'/function/CIConfig.php');
 		$configs = CI\CIConfig($obj);
+		if( empty($configs) ){
+			return false;
+		}
 
         //  Get skip method.
         $skip = OP()->Request('skip');
