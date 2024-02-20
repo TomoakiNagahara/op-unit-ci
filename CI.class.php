@@ -105,56 +105,13 @@ class CI implements IF_UNIT
 	/** Git stash save to all repositories.
 	 *
 	 * @created		2023-11-24
-	 * @return		array
 	 */
-	static function GitStashSave(): array
+	static function GitStashSave()
 	{
-		//	...
-		$status = [];
-
-		//	...
 		if( self::Dryrun() ){
-			return $status;
+			return;
 		}
-
-		//	...
-		try{
-
-		//	...
-		$current_dir = getcwd();
-
-		//	...
-		$git_root = RootPath('git');
-
-		//	...
-		$configs = self::Git()->SubmoduleConfig();
-
-		//	...
-		foreach( $configs as $config ){
-			//	...
-			$path = $config['path'];
-			//	...
-			chdir($git_root . $path);
-			//	...
-			if( self::Git()->Stash()->Save() ){
-				//	...
-				CI_Client::Display("git stash save : {$path}");
-
-				//	...
-				$temp['path'] = $path;
-				$status[] = $temp;
-			}
-		}
-		}catch( \Throwable $e ){
-			echo $e->getMessage() . "\n";
-			echo $e->getTraceAsString() . "\n";
-		}
-
-		//	...
-		chdir($current_dir);
-
-		//	...
-		return $status;
+		include(__DIR__.'/include/GitStashSave.php');
 	}
 
 	/** Git stash pop to saved repositories.
