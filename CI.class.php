@@ -117,31 +117,13 @@ class CI implements IF_UNIT
 	/** Git stash pop to saved repositories.
 	 *
 	 * @created		2023-11-24
-	 * @param		array		$status
 	 */
-	static function GitStashPop(array $status) : void
+	static function GitStashPop()
 	{
-		try{
-		//	...
-		$current_dir = getcwd();
-
-		//	...
-		$git_root = RootPath('git');
-
-		//	...
-		foreach( $status as $state ){
-			$path = $state['path'];
-			chdir($git_root . $path);
-			self::Git()->Stash()->Pop();
-			CI_Client::Display("git stash pop : {$path}");
+		if( self::Dryrun() ){
+			return;
 		}
-		}catch( \Throwable $e ){
-			echo $e->getMessage() . "\n";
-			echo $e->getTraceAsString() . "\n";
-		}
-
-		//	...
-		chdir($current_dir);
+		include(__DIR__.'/include/GitStashPop.php');
 	}
 
 	/** All submodules code inspection.
