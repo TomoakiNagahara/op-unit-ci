@@ -32,6 +32,16 @@ function GetSubmoduleConfig() : array
 		//	...
 		$git_root = \OP\RootPath('git');
 
+		//	If the unit name specified.
+		if( $unit = OP()->Request('unit') ){
+			$unit = strtolower($unit);
+			$configs = [
+				$unit => [
+					'path' => "asset/unit/{$unit}",
+				],
+			];
+		}else
+
 		//	...
 		if( file_exists("{$git_root}.gitmodules") ){
 			$configs = OP()->Unit('Git')->SubmoduleConfig();
