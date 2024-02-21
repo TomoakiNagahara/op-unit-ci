@@ -732,12 +732,24 @@ class CI_Client implements IF_UNIT
 		echo "{$current_dir} - {$message}\n";
 	}
 
-    /** Dry run check.
-     *
-     * @return boolean
-     */
-    static function Dryrun() : bool
-    {
-        return (OP()->Request('test', false) or OP()->Request('dry-run', false)) ? true : false;
-    }
+	/** Dry run check.
+	 *
+	 * @return boolean
+	 */
+	static function Dryrun() : bool
+	{
+		//	...
+		$request = OP()->Request();
+
+		//	...
+		foreach( ['dry-run', 'dryrun', 'test'] as $key ){
+			//	...
+			if( $request[$key] ?? null ){
+				$io = true;
+			}
+		}
+
+		//	...
+		return $io ?? false;
+	}
 }
