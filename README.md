@@ -4,6 +4,38 @@ CI is Code Inspection
  * Automatically inspection the classes all methods.
  * Automatically access testcases.
 
+# Usage
+
+## Standard
+
+```php
+php ci.php
+```
+
+## Dry-run
+
+```php
+php ci.php dry-run=1
+```
+
+## Specify the path
+
+```php
+php ci.php path=asset:/core
+```
+
+## Specify the class
+
+```php
+php ci.php path=asset:/core class=OP,Env
+```
+
+## Specify the method
+
+```php
+php ci.php path=asset:/core class=OP method=Get,Set
+```
+
 # Technical information
 
  * "OP_CI" is load ".gitmodule" file.
