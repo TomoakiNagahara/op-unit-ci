@@ -46,7 +46,7 @@ class CI implements IF_UNIT
 	 * @created   2022-10-15
 	 * @var       array
 	 */
-	private $_config;
+	private $_config = [];
 
 	/** PHP Built-in server process resource.
 	 *
