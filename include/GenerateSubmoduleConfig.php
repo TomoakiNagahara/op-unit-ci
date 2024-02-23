@@ -26,7 +26,7 @@ $git_root   = \OP\RootPath('git');
 $asset_root = "{$git_root}asset";
 
 //	...
-$list = array_merge( glob("{$asset_root}/unit/*"),  glob("{$asset_root}/layout/*"), glob("{$asset_root}/module/*"), glob("{$asset_root}/webpack/*") );
+$list = array_merge( ["{$asset_root}/core"], glob("{$asset_root}/unit/*"),  glob("{$asset_root}/layout/*"), glob("{$asset_root}/module/*"), glob("{$asset_root}/webpack/*") );
 
 //	...
 foreach( $list as $path ){
