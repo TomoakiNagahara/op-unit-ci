@@ -11,7 +11,7 @@
  */
 //	...
 return [
-    'app_id'   => 'CI1',
+    'app_id'   => 'CI',
     'testcase' => [
         'port' => '8000',
     ],
