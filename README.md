@@ -2,7 +2,7 @@ CI is Code Inspection
 ===
 
  * Automatically inspection the classes all methods.
- * Automatically access testcases.
+ * ~~Automatically access testcases.~~
 
 # Usage
 
@@ -16,6 +16,12 @@ php ci.php
 
 ```php
 php ci.php dry-run=1
+```
+
+## Specify the Unit
+
+```php
+php ci.php unit=app
 ```
 
 ## Specify the path
