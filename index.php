@@ -18,7 +18,12 @@ declare(strict_types=1);
  */
 namespace OP;
 
+/** Request check.
+ *
+ */
+require_once(__DIR__.'/include/request_check.php');
+
 /** Include
  *
  */
-include(__DIR__.'/CI.class.php');
+require_once(__DIR__.'/CI.class.php');
