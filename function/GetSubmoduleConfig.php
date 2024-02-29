@@ -35,11 +35,24 @@ function GetSubmoduleConfig() : array
 		//	If the unit name specified.
 		if( $unit = OP()->Request('unit') ){
 			$unit = strtolower($unit);
-			$configs = [
-				$unit => [
-					'path' => "asset/unit/{$unit}",
-				],
-			];
+
+			//	...
+			if( $unit === 'core' ){
+				//	core
+				$configs = [
+					'core' => [
+						'path' => "asset/core",
+					],
+				];
+			}else{
+				//	unit
+				$configs = [
+					$unit => [
+						'path' => "asset/unit/{$unit}",
+					],
+				];
+			}
+
 		}else
 
 		//	...
