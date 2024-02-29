@@ -371,6 +371,7 @@ class CI_Client implements IF_UNIT
 				continue;
 			}
 
+			/*
             //  Include class file.
             require_once($file);
 
@@ -382,15 +383,32 @@ class CI_Client implements IF_UNIT
             $class = str_replace('-', '\\', $class);
             $obj = new $class();
 
-            /*
             //  Include config file.
-            $configs = OP()->Template("./ci/{$name}.php");
-            */
+        //  $configs = OP()->Template("./ci/{$name}.php");
 
 			//	Inspect each instantiate object.
             if(!self::CI_Class($obj) ){
                 return false;
             }
+            */
+
+			//	Join namespace to class name.
+			$name  = basename($file, '.class.php');
+			$class = $namespace . $name;
+			$class = str_replace('-', '\\', $class);
+
+			//	Include class file if not load.
+			if(!class_exists($class, false) ){
+				require_once($file);
+			}
+
+			//	Instantiate Object from namespace class.
+			$obj = new $class();
+
+			//	Inspect that instantiate object.
+			if(!self::CI_Class($obj) ){
+				return false;
+			}
 		}
 
         /*
