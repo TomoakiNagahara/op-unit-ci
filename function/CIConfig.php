@@ -59,10 +59,18 @@ function CIConfig(&$object) : array
 
 	//	...
 	if(!file_exists( OP()->MetaPath($path) ) ){
-		OP()->Notice("This file is not exist. ($path)");
+		OP()->Notice("This file does not exist. ($path)");
 		return [];
 	}
 
 	//	...
-	return OP()->Template($path);
+	$config = OP()->Template($path);
+
+	//	...
+	if(!is_array($config) ){
+		throw new \Exception("Return value is not array. ($path)");
+	}
+
+	//	...
+	return $config;
 }
