@@ -315,7 +315,7 @@ class CI_Client implements IF_UNIT
                 //  ...
                 include_once(__DIR__.'/function/Serialize.php');
                 $class = get_class($obj);
-                $args  = CI\Serialize($args);
+                $args  = Serialize($args);
                 echo "\n{$class}->{$method}({$args}) is unmatch expect and result.\n";
 
 				//	...
