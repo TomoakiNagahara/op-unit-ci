@@ -545,7 +545,10 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if( $request['unit'] ?? null ){
-			$request['dry-run'] = true;
+			if(!$request['dry-run'] ?? null ){
+				$request['dry-run'] =  true;
+				self::Display("Found unit args. change to dry-run=1.");
+			}
 		}
 
 		//	...
