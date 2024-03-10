@@ -25,7 +25,7 @@ use OP\OP_CI;
 use OP\OP_CORE;
 use OP\IF_UNIT;
 
-/** ci
+/** CI_Config
  *
  * @created    2023-11-21
  * @version    1.0
