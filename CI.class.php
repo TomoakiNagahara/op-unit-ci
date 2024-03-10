@@ -574,6 +574,11 @@ class CI_Client implements IF_UNIT
                     echo "Hint..: {$match}\n\n";
                 }
 
+                //	...
+                DebugBacktrace::Auto($traces);
+
+                //	...
+                if( 0 ){
 				//	...
 				if( $traces ){
 					$i = count($traces);
@@ -589,6 +594,7 @@ class CI_Client implements IF_UNIT
 						echo "$n: ".DebugBacktrace::Numerator($trace)."\n";
 					}
 				}
+                }
 
 				//  ...
 				return false;
