@@ -392,10 +392,23 @@ class CI_Client implements IF_UNIT
             }
             */
 
-			//	Join namespace to class name.
+			/** Join namespace to class name.
+			 *
+			 *  1. Foo-Bar.class.php
+			 *  1. Foo-Bar
+			 *  1. Foo-Bar --> Foo, Bar
+			 *  1. Foo --> FOO
+			 *  1. \OP\UNIT\FOO\Bar
+			 */
 			$name  = basename($file, '.class.php');
-			$class = $namespace . $name;
+			$names = explode('-', $name);
+			$name  = array_pop($names);
+			$names = $names ? join('\\', $names).'\\': '';
+			$names = strtoupper($names);
+			$class = $namespace . $names . $name;
+			/*
 			$class = str_replace('-', '\\', $class);
+			*/
 
 			//	Include class file if not load.
 			if(!class_exists($class, false) ){
