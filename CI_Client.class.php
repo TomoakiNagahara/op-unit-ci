@@ -356,25 +356,6 @@ class CI_Client implements IF_UNIT
                 //	...
                 DebugBacktrace::Auto($traces);
 
-                //	...
-                if( 0 ){
-				//	...
-				if( $traces ){
-					$i = count($traces);
-					/*
-					echo "\n{$result}\n\n";
-					*/
-					foreach( $traces as $trace){
-						$i--;
-						$n = str_pad((string)$i, 2, ' ', STR_PAD_LEFT);
-						/*
-						echo "$n: ".OP()->DebugBacktraceToString($trace)."\n";
-						*/
-						echo "$n: ".DebugBacktrace::Numerator($trace)."\n";
-					}
-				}
-                }
-
 				//  ...
 				return false;
 			}
