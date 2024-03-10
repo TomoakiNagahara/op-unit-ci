@@ -471,9 +471,12 @@ class CI_Client implements IF_UNIT
 		//	Get CI Configs for that instance.
 		require_once(__DIR__.'/function/CIConfig.php');
 		$configs = CI\CIConfig($obj);
+		/** If $configs is empty, throw Exception in CIConfig().
+		 * @deprecated 2024-03-10
 		if( empty($configs) ){
 			return false;
 		}
+		*/
 
         //  Get skip method.
         $skip = OP()->Request('skip');
