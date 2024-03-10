@@ -760,6 +760,11 @@ class CI_Client implements IF_UNIT
 		$request = OP()->Request();
 
 		//	...
+		if( $request['unit'] ?? null ){
+			$request['dry-run'] = true;
+		}
+
+		//	...
 		foreach( ['dry-run', 'dryrun', 'test'] as $key ){
 			//	...
 			if( $request[$key] ?? null ){
