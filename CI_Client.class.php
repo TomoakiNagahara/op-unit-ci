@@ -434,7 +434,7 @@ class CI_Client implements IF_UNIT
 	{
 		//	...
 		if(!$branch ){
-			$branch = self::Git()->CurrentBranch();
+			$branch = self::Git()->Branch()->Current();
 		}
 
 		//	...
