@@ -652,13 +652,13 @@ class CI_Client implements IF_UNIT
 	 */
 	static function SaveCommitID():void
 	{
-        //  ...
-        if( self::Dryrun() ){
-            return;
-        }
+		//	...
+		if( self::Dryrun() ){
+			return;
+		}
 
 		//	...
-		$branch    = self::Git()->CurrentBranch();
+		$branch    = self::Git()->Branch()->Current();
 		$commit_id = self::Git()->CurrentCommitID();
 		$file_name = self::GenerateFilename();
 
