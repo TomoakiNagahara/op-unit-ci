@@ -533,6 +533,13 @@ class CI_Client implements IF_UNIT
 	 */
 	static function Dryrun() : bool
 	{
+		//	..
+		static $io;
+
+		//	...
+		if( $io === null ){
+			$io = false;
+
 		//	...
 		$request = OP()->Request();
 
@@ -547,6 +554,7 @@ class CI_Client implements IF_UNIT
 			if( $request[$key] ?? null ){
 				$io = true;
 			}
+		}
 		}
 
 		//	...
