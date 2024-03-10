@@ -159,7 +159,10 @@ class CI implements IF_UNIT
 			//	Main repository.
 			if( $io ){
 				chdir(RootPath('git'));
+				/*
 				$io = self::Single();
+				*/
+				CI_Client::SaveCommitID();
 			}
 
 			}
