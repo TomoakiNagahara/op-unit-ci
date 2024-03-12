@@ -339,6 +339,14 @@ class CI_Client implements IF_UNIT
 
 				echo "\n";
 
+				//	...
+				if( is_array($expect) ){
+					$expect = json_encode($expect);
+				}
+				if( is_array($result) ){
+					$result = json_encode($result);
+				}
+
                 //  ...
                 if( is_string($expect) and is_string($result) ){
                     $match = '            "';
