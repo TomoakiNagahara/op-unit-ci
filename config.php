@@ -9,9 +9,13 @@
  * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright  Tomoaki Nagahara All right reserved.
  */
+
+//	...
+define('_OP_UNIT_CI_APP_ID_', 'CI');
+
 //	...
 return [
-	'app_id'   => 'CI',
+	'app_id'   => _OP_UNIT_CI_APP_ID_,
 	/*
 	'testcase' => [
 		'port' => '8000',
