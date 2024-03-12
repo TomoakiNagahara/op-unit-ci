@@ -40,7 +40,8 @@ function Serialize(array $args) : string
 			case 'array':
 				$result = json_encode($arg);
 				break;
-			case '':
+			case 'integer':
+				$result = $arg;
 				break;
 			case '':
 				break;
