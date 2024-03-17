@@ -11,14 +11,6 @@
  */
 
 //	...
-define('_OP_UNIT_CI_APP_ID_', 'CI');
-
-//	...
 return [
-	'app_id'   => _OP_UNIT_CI_APP_ID_,
-	/*
-	'testcase' => [
-		'port' => '8000',
-	],
-	*/
+	'ci' => true,
 ];
