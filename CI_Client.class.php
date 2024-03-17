@@ -342,9 +342,11 @@ class CI_Client implements IF_UNIT
 				//	...
 				if( is_array($expect) ){
 					$expect = json_encode($expect);
+					$expect = str_replace('\/', '/', $expect);
 				}
 				if( is_array($result) ){
 					$result = json_encode($result);
+					$result = str_replace('\/', '/', $result);
 				}
 
                 //  ...
