@@ -217,8 +217,21 @@ class CI implements IF_UNIT
 
 	/** Generate Config.
 	 *
+	 * <pre>
+	 * //  Get CI Config instance.
+	 * $ci = OP()->Unit('CI')->Config();
+	 *
+	 * //  Set CI configuration.
+	 * $ci->Set('MethodName', 'result', 'args');
+	 *
+	 * //  Return CI configuration.
+	 * return $ci->Get();
+	 * </pre>
+	 *
+	 * @deprecated 2024-03-20
 	 * @created    2022-10-15
 	 * @moved      2023-02-22 op-core:/CI.class.php
+	 * @moved      2024-03-20 CI --> CI_Config
 	 * @return     array      $config
 	 */
 	function GenerateConfig() : array
