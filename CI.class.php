@@ -50,14 +50,6 @@ class CI implements IF_UNIT
 	 */
 	private $_config = [];
 
-    /** Construct
-     *
-     * @created     2022-11-12
-     */
-    function __construct()
-    {
-    }
-
     /** Destruct
      *
      * @created     2022-11-10
