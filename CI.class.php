@@ -50,14 +50,6 @@ class CI implements IF_UNIT
 	 */
 	private $_config = [];
 
-    /** Save git stash saved.
-     *
-	 * @deprecated	2023-11-23
-     * @created     2022-11-12
-     * @var         boolean
-     */
-//  private $_git_stash_save;
-
     /** Construct
      *
      * @created     2022-11-12
