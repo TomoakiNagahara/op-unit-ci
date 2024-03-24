@@ -281,6 +281,20 @@ class CI_Client implements IF_UNIT
 					continue 2;
 			}
 
+			//	If Config() method.
+			if( $method === 'Config' ){
+				//	OP_UNIT::Config()
+				if( _OP_APP_BRANCH_ < 2024 ){
+					//	Under 2024
+					$class_name = get_class($obj);
+					if( strpos($class_name, 'OP\\UNIT') === 0 ){
+						//	Unit only
+						self::Display("Starting from the 2024 branch, CI for the config method will be required.");
+						continue;
+					}
+				}
+			}
+
 			//	Inspect each method.
             if(!self::CI_Method($obj, $method, $configs[$method] ?? [[]]) ){
                 return false;
