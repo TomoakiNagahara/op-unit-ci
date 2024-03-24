@@ -254,4 +254,25 @@ class CI implements IF_UNIT
 	{
 		return CI_Client::GenerateFilename($branch);
 	}
+
+	/** Return CI Config instance.
+	 *
+	 * <pre>
+	 * //  Get CI Config instance.
+	 * $ci = OP()->Unit('CI')->Config();
+	 *
+	 * //  Set CI configuration.
+	 * $ci->Set('MethodName', 'result', 'args');
+	 *
+	 * //  Return CI configuration.
+	 * return $ci->Get();
+	 * </pre>
+	 *
+	 * @return CI\CI_Config
+	 */
+	static function Config() : CI\CI_Config
+	{
+		require_once(__DIR__.'/CI_Config.class.php');
+		return new CI\CI_Config();
+	}
 }
