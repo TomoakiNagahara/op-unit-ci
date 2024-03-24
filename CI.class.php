@@ -43,9 +43,10 @@ class CI implements IF_UNIT
 
 	/** Config
 	 *
-	 * _deprecated 2024-03-10 Should be separated to CI_Config.
-	 * @created   2022-10-15
-	 * @var       array
+	 * @deprecated 2024-03-10 Should be separated to CI_Config.
+	 * @created    2022-10-15
+	 * @moved      2024-03-20  CI --> CI_Config
+	 * @var        array
 	 */
 	private $_config = [];
 
