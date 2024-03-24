@@ -79,6 +79,14 @@ class CI_Client implements IF_UNIT
 	static function Init() : bool
 	{
 		//	...
+		if( file_exists('ci.sh') or file_exists('.ci.sh') ){
+			//	CI
+		}else{
+			self::Display('Does not found ci.sh or .ci.sh file.');
+			return false;
+		}
+
+		//	...
 		if( file_exists('.ci_skip') ){
 			self::Display('Found .ci_skip file.');
 			self::SaveCommitID();
