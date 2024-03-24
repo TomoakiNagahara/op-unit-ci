@@ -50,13 +50,6 @@ class CI implements IF_UNIT
 	 */
 	private $_config = [];
 
-	/** PHP Built-in server process resource.
-	 *
-	 * @deprecated	2023-11-23
-	 * @var resource
-	 */
-//	private $_server;
-
     /** Save git stash saved.
      *
 	 * @deprecated	2023-11-23
