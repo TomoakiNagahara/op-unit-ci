@@ -75,4 +75,34 @@ class CI_Config implements IF_UNIT
 			'args'   => $args,
 		];
 	}
+
+	/** Generate Config.
+	 *
+	 * <pre>
+	 * //  Get CI Config instance.
+	 * $ci = OP()->Unit('CI')->Config();
+	 *
+	 * //  Set CI configuration.
+	 * $ci->Set('MethodName', 'result', 'args');
+	 *
+	 * //  Return CI configuration.
+	 * return $ci->Get();
+	 * </pre>
+	 *
+	 * @created    2022-10-15
+	 * @moved      2023-02-22  op-core:/CI.class.php --> op-unt-ci:/CI.class.php
+	 * @moved      2024-03-20  CI --> CI_Config
+	 * @return     array       $config
+	 */
+	function Get() : array
+	{
+		//	Swap config.
+		$config = $this->_config;
+
+		//	Reset config.
+		$this->_config = [];
+
+		//	Return config.
+		return $config;
+	}
 }
