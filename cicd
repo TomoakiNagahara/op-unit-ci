@@ -36,7 +36,7 @@ $argv5 = $_SERVER['argv'][5] ?? '';
 foreach( ['ci','cd'] as $cicd ){
 	$output = null;
 	$status = null;
-	$comand = "{$php} {$cicd}.php {$argv1} {$argv2} {$argv3} {$argv4} {$argv5}";
+	$comand = "{$php} .{$cicd}.php {$argv1} {$argv2} {$argv3} {$argv4} {$argv5}";
 	exec($comand, $output, $status);
 	//	...
 	if( $output ){
