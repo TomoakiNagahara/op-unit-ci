@@ -39,4 +39,12 @@ class CI_Config implements IF_UNIT
 	 *
 	 */
 	use OP_CORE, OP_CI;
+
+	/** Config
+	 *
+	 * @created    2022-10-15
+	 * @moved      2024-03-20  CI --> CI_Config
+	 * @var        array
+	 */
+	private $_config = [];
 }
