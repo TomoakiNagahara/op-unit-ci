@@ -39,18 +39,19 @@ function CIConfig(&$object) : array
 			$meta = 'core';
 			$name = $class_parse[1];
     }else{
-        //  UNIT
-        if( $io = $class_parse[1] === 'UNIT' ? true: false ){
+		//  UNIT or MODULE
+		if( $class_parse[1] === 'UNIT' or $class_parse[1] === 'MODULE' ){
+			$io = true;
+			$meta = strtolower($class_parse[1]);
             array_shift($class_parse);
             array_shift($class_parse);
-            $meta = 'unit';
             $unit = strtolower($class_parse[0]);
             $name = join('-', $class_parse);
         }
 	}
 
 	//	...
-	if(!$io ){
+	if(!$io ?? null ){
 		throw new \Exception("Is correct namespace? ($class_path)");
 	}
 
