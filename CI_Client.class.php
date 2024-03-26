@@ -287,7 +287,9 @@ class CI_Client implements IF_UNIT
 				if( _OP_APP_BRANCH_ < 2024 ){
 					//	Under 2024
 					$class_name = get_class($obj);
-					if( strpos($class_name, 'OP\\UNIT') === 0 ){
+					if( strpos($class_name, 'OP\\UNIT\\')   === 0 or
+						strpos($class_name, 'OP\\MODULE\\') === 0
+					){
 						//	Unit only
 						self::Display("Starting from the 2024 branch, CI for the config method will be required.");
 						continue;
