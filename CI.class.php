@@ -57,7 +57,7 @@ class CI implements IF_UNIT
 	function Auto() : bool
 	{
 		//	Save
-		$status = self::GitStashSave();
+		self::GitStashSave();
 
 		//	...
 		if( OP()->Request('all') ?? 1 ){
@@ -67,7 +67,7 @@ class CI implements IF_UNIT
 		}
 
 		//	Pop
-		self::GitStashPop($status);
+		self::GitStashPop();
 
 		//	...
 		return $io;
