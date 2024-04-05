@@ -19,20 +19,32 @@ declare(strict_types=1);
 namespace OP\UNIT\CI;
 
 //	...
+require_once(__DIR__.'/../function/Display.php');
+require_once(__DIR__.'/../function/GetSubmoduleConfig.php');
+
+//	...
 $current_dir = getcwd();
 
 //	...
 $git_root = \OP\RootPath('git');
 
 //	...
-require_once(__DIR__.'/../function/Display.php');
-require_once(__DIR__.'/../function/GetSubmoduleConfig.php');
+chdir($git_root);
+if( self::Git()->Stash()->Pop() ){
+	//	...
+	Display("git stash pop : {$git_root}");
+}
+
+//	...
 $configs = GetSubmoduleConfig();
 
 //	...
 foreach( $configs as $config ){
+	//	...
 	$path = $config['path'];
+	//	...
 	chdir($git_root . $path);
+	//	...
 	if( self::Git()->Stash()->Pop() ){
 		Display("git stash pop : {$path}");
 	}
