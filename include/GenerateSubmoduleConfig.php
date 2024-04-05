@@ -37,8 +37,12 @@ foreach( $list as $path ){
 	}
 	//	...
 	$path = substr($path, strlen($git_root));
+	/** Conflict to name.
+	 * asset/unit/develop --> asset/module/develop
 	$name = basename($path);
 	$configs[$name] = [
+	*/
+	$configs[$path] = [
 		'path' => $path,
 	];
 }
