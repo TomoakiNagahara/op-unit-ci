@@ -79,6 +79,9 @@ class CI_Client implements IF_UNIT
 	static function Init() : bool
 	{
 		//	...
+		OP()->MIME('text/plain');
+
+		//	...
 		if( file_exists('ci.sh') or file_exists('.ci.sh') ){
 			//	CI
 		}else{
