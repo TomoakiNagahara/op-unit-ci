@@ -181,6 +181,7 @@ class CI_Client implements IF_UNIT
 
 			/** Join namespace to class name.
 			 *
+			 *  If included namespace in file name.
 			 *  1. Foo-Bar.class.php
 			 *  1. Foo-Bar
 			 *  1. Foo-Bar --> Foo, Bar
@@ -188,10 +189,31 @@ class CI_Client implements IF_UNIT
 			 *  1. \OP\UNIT\FOO\Bar
 			 */
 			$name  = basename($file, '.class.php');
+			//	If included namespace in file name.
+			if( strpos($name,'-') !== false ){
 			$names = explode('-', $name);
 			$name  = array_pop($names);
 			$names = $names ? join('\\', $names).'\\': '';
 			$names = strtoupper($names);
+			}else{
+				/** If not included namespace in file name.
+				 *
+				 *  # main class
+				 *  1. Foo.class.php
+				 *  1. \OP\UNIT\Foo
+				 *
+				 *  # sub class
+				 *  1. Bar.class.php --> Bar
+				 *  1. asset:/unit/foo --> FOO
+				 *  1. \OP\UNIT\FOO\Bar
+				 */
+				$basename = basename(getcwd());
+				if( $basename === strtolower($name) ){
+					$names = '';
+				}else{
+					$names = strtoupper($basename).'\\';
+				}
+			}
 			$class = $namespace . $names . $name;
 			/*
 			$class = str_replace('-', '\\', $class);
