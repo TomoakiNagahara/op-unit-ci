@@ -580,9 +580,13 @@ class CI_Client implements IF_UNIT
 		//	...
 		$request = OP()->Request();
 
-		//	...
+		//	If set unit.
 		if( $request['unit'] ?? null ){
-			if(!$request['dry-run'] ?? null ){
+			//	If set dry-run
+			if( $request['dry-run'] ?? null ){
+				//	Already set.
+			}else{
+				//	Set to dry-run is true.
 				$request['dry-run'] =  true;
 				self::Display("Found unit args. change to dry-run=1.");
 			}
