@@ -55,17 +55,15 @@ function CIConfig(&$object) : array
 		throw new \Exception("Is correct namespace? ($class_path)");
 	}
 
+	/*
 	//	...
 	$path = ($unit ?? null) ? "{$meta}:/{$unit}/ci/{$name}.php" : "{$meta}:/ci/{$name}.php";
 
 	//	...
 	if(!file_exists( OP()->MetaPath($path) ) ){
-		/*
-		OP()->Notice("This file does not exist. ($path)");
-		return [];
-		*/
 		throw new \Exception("This file does not exist. ($path)");
 	}
+	*/
 
 	//	...
 	$config = OP()->Template($path);
