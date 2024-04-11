@@ -65,6 +65,33 @@ function CIConfig(&$object) : array
 	}
 	*/
 
+	//	Get asset root
+	$asset_root = \OP\RootPath('asset');
+
+	//	core or unit
+	if( $meta === 'core' ){
+		//	core
+		$path = "{$asset_root}core/ci/{$name}.php";
+	}else{
+		//	unit
+		$path = "{$asset_root}unit/{$unit}/ci/{$name}.php";
+		//	If file name is included namespace.
+		if(!file_exists($path) ){
+			//	Trim namespace from file name.
+			if( $pos  = strpos($name, '-') ){
+				$name = substr($name, $pos+1); // Unit-Name --> Name
+				$path = "{$asset_root}unit/{$unit}/ci/{$name}.php";
+			}
+		}
+	}
+
+	//	...
+	if( file_exists($path) ){
+		$path = OP()->MetaPath($path);
+	}else{
+		throw new \Exception("This file does not exist. ($path)");
+	}
+
 	//	...
 	$config = OP()->Template($path);
 
