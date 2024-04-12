@@ -127,12 +127,14 @@ class CI_Client implements IF_UNIT
 	static function CI() : bool
 	{
         //  Init
+        $is_core  = null;
         $curr_dir = realpath( getcwd().'/'     );
         $core_dir = realpath( RootPath('core') );
         $unit_dir = realpath( RootPath('unit') );
 
         //	Get namespace
         if( $curr_dir === $core_dir ){
+            $is_core   = true;
             $namespace = 'OP\\';
         }else if( strpos($curr_dir, $unit_dir) === 0 ){
             $namespace = 'OP\UNIT\\';
@@ -190,6 +192,9 @@ class CI_Client implements IF_UNIT
 			 */
 			$name  = basename($file, '.class.php');
 			//	If included namespace in file name.
+			if( $is_core ){
+				$names = '';
+			}else
 			if( strpos($name,'-') !== false ){
 			$names = explode('-', $name);
 			$name  = array_pop($names);
