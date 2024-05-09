@@ -19,12 +19,13 @@ declare(strict_types=1);
 namespace OP;
 
 //	...
-$ci = OP::Unit('CI');
-
-//	Test
-$result =  null;
-$args   = ['a','b'];
-$ci->Set('Test', $result, $args);
+$ci = OP::Unit('CI')::Config();
 
 //	...
-return $ci->GenerateConfig();
+$method = 'Test';
+$result =  null;
+$args   = ['a','b'];
+$ci->Set($method, $result, $args);
+
+//	...
+return $ci->Get();
