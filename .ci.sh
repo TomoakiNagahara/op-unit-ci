@@ -17,7 +17,7 @@ COMMAND=$(ps -ocommand= -p $PPID)
 # Parse
 ARRAY=(${COMMAND//,/ })
 REMOTE=${ARRAY[2]}
-BRANCH=${ARRAY[3]}
+BRANCH=`git rev-parse --abbrev-ref HEAD`
 PHP=`php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;"`
 
 # Get current branch name
