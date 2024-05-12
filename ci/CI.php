@@ -21,10 +21,10 @@ namespace OP;
 //	...
 $ci = OP::Unit('CI')::Config();
 
-//	...
-$method = 'Test';
-$result =  null;
-$args   = ['a','b'];
+//	Template
+$method = 'Template';
+$args   = ['ci.txt'];
+$result = 'OK';
 $ci->Set($method, $result, $args);
 
 //	...
