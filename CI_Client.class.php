@@ -108,12 +108,10 @@ class CI_Client implements IF_UNIT
 			include_once('autoloader.php');
 		}
 
-		/*
 		//	...
 		if( self::CheckCommitID() ){
 			return false;
 		}
-		*/
 
 		//	...
 		return true;
