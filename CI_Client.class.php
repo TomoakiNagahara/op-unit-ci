@@ -507,7 +507,6 @@ class CI_Client implements IF_UNIT
 		if( file_exists($file_name) ){
 			$saved_id  = file_get_contents($file_name);
 			if( $commit_id === $saved_id ){
-				self::Display("This branch is already inspected. ($branch)");
 				return;
 			}
 		}
