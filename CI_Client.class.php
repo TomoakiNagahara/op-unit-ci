@@ -514,13 +514,10 @@ class CI_Client implements IF_UNIT
 		//	...
 		$io = file_put_contents($file_name, $commit_id);
 		if( $io ){
-			self::Display("Saved current commit id. ($branch, $file_name)");
+			self::Display("{$branch}:{$commit_id} --> {$file_name}");
 		}else{
 			self::Display("Failed save commit id. ($branch, $file_name)");
 		}
-
-		//	...
-		self::Display("{$branch}:{$commit_id} --> {$file_name}");
 	}
 
 	/** Check if current commit id and saved commit id then already checked.
