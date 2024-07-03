@@ -325,10 +325,20 @@ class CI_Client implements IF_UNIT
 				}
 			}
 
-			//	Inspect each method.
-            if(!self::CI_Method($obj, $method, $configs[$method] ?? [[]]) ){
-                return false;
-            }
+			//	Check has config.
+			if( empty($configs[$method]) ){
+				$class_name = get_class($obj);
+				echo "This method config is not set. ({$class_name} -> {$method})\n";
+				return false;
+			}
+
+			//	$configs[$method] is configs by each args.
+			foreach( $configs[$method] as $config ){
+				//	Inspect each args
+				if(!self::CI_Method($obj, $method, $config) ){
+					return false;
+				}
+			}
 		}
 
         //  ...
@@ -343,10 +353,8 @@ class CI_Client implements IF_UNIT
 	 * @param      array       $configs
 	 * @return     boolean     $io
 	 */
-	static function CI_Method(object $obj, string $method, array $configs) : bool
+	static function CI_Method(object $obj, string $method, array $config) : bool
 	{
-		//	Inspect each args
-		foreach( $configs as $config ){
 			//	...
 			$trace  = $config['trace']  ?? null;
 			$expect = $config['result'] ?? null;
@@ -428,7 +436,6 @@ class CI_Client implements IF_UNIT
 				//  ...
 				return false;
 			}
-		}
 
 		//  ...
 		return true;
