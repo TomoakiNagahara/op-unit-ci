@@ -348,6 +348,7 @@ class CI_Client implements IF_UNIT
 		//	Inspect each args
 		foreach( $configs as $config ){
 			//	...
+			$trace  = $config['trace']  ?? null;
 			$expect = $config['result'] ?? null;
 			$arg    = $config['args']   ?? null;
 			$args   = is_array($arg) ? $arg: [$arg];
@@ -369,6 +370,12 @@ class CI_Client implements IF_UNIT
                 $class = get_class($obj);
                 $args  = Serialize($args);
                 echo "\n{$class}->{$method}({$args}) is unmatch expect and result.\n";
+				if( $trace ){
+					echo " --> {$trace[0]} #{$trace[1]}\n";
+				}else{
+					$class_name = get_class($obj);
+					echo "\n{$class_name} -> {$method} is not define in ci config.\n";
+				}
 
 				//	...
 				/*
