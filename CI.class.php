@@ -209,9 +209,16 @@ class CI implements IF_UNIT
 	 */
 	function Set($method, $result, $args)
 	{
+		//	...
+		$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)[0];
+		$file  = $trace['file'];
+		$line  = $trace['line'];
+
+		//	...
 		$this->_config[$method][] = [
 			'result' => $result,
 			'args'   => $args,
+			'trace'  => [$file, $line],
 		];
 	}
 
