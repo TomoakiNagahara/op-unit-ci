@@ -53,7 +53,7 @@ COMMIT_ID=`git rev-parse $BRANCH`
 #echo $COMMIT_ID
 
 #
-if [ $COMMIT_ID != $CI_COMMIT_ID ]; then
+if [ "$COMMIT_ID" != "$CI_COMMIT_ID" ]; then
   echo "ci.sh: Unmatch commit id"
   echo $COMMIT_ID branch=$BRANCH
   echo $CI_COMMIT_ID $CI_FILE
