@@ -377,7 +377,7 @@ class CI_Client implements IF_UNIT
                 include_once(__DIR__.'/function/Serialize.php');
                 $class = get_class($obj);
                 $args  = Serialize($args);
-                echo "\n{$class}->{$method}({$args}) is unmatch expect and result.\n";
+                echo "\n{$class}->{$method}({$args}) is not match expect and result.\n";
 				if( $trace ){
 					echo " --> {$trace[0]} #{$trace[1]}\n";
 				}else{
