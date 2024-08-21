@@ -18,7 +18,7 @@ declare(strict_types=1);
  */
 namespace OP;
 
-//	...
+/* @var $ci \OP\UNIT\CI\CI_Config */
 $ci = OP::Unit('CI')::Config();
 
 //	Template
