@@ -373,11 +373,13 @@ class CI_Client implements IF_UNIT
 
 			//	...
 			if( $result !== $expect ){
-                //  ...
-                include_once(__DIR__.'/function/Serialize.php');
-                $class = get_class($obj);
-                $args  = Serialize($args);
-                echo "\n{$class}->{$method}({$args}) is not match expect and result.\n";
+				//	...
+				include_once(__DIR__.'/function/Serialize.php');
+				$class = get_class($obj);
+				$pson  = is_null($config['args']) ? null: Serialize($args);
+				echo "\n{$class}->{$method}({$pson}) is not match expect and result.\n";
+
+				//	...
 				if( $trace ){
 					echo " --> {$trace[0]} #{$trace[1]}\n";
 				}else{
