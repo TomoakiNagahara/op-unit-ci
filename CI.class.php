@@ -56,8 +56,10 @@ class CI implements IF_UNIT
 	 */
 	function Auto() : bool
 	{
+		/* move to index.php
 		//	Save
 		self::GitStashSave();
+		*/
 
 		//	...
 		if( OP()->Request('all') ?? 1 ){
@@ -66,8 +68,10 @@ class CI implements IF_UNIT
 			$io = self::Single();
 		}
 
+		/* move to index.php
 		//	Pop
 		self::GitStashPop();
+		*/
 
 		//	...
 		return $io;
