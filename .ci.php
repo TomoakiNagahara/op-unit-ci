@@ -18,6 +18,9 @@ declare(strict_types=1);
  */
 namespace OP;
 
+//	Get git root.
+$git_root = trim(`git rev-parse --show-superproject-working-tree` ?? '');
+
 //  Inherit the PHP version of the execution source.
 $php = $_SERVER['_'];
 
@@ -30,7 +33,7 @@ $argv5 = $_SERVER['argv'][5] ?? '';
 
 /* @var $output array   */
 /* @var $status integer */
-exec("{$php} ../../../ci.php {$argv1} {$argv2} {$argv3} {$argv4} {$argv5}", $output, $status);
+exec("{$php} {$git_root}/ci.php {$argv1} {$argv2} {$argv3} {$argv4} {$argv5}", $output, $status);
 if( $output ){
 	echo join("\n", $output)."\n";
 }
