@@ -126,7 +126,15 @@ class CI implements IF_UNIT, IF_CI
 				if(!$io = self::Single() ){
 					break;
 				}
+
+				//	Automatically commit submodule.
+				chdir( RootPath('git') );
+				`git add {$path}`;
 			}
+
+			//	Automatically commit.
+			$branch = self::Git()->Branch()->Current();
+			`git commit -m "{$branch}: Automatically commit submodule"`;
 
 			//	Main repository.
 			if( $io ){
