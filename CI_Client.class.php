@@ -555,6 +555,7 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if(!file_exists($file_name) ){
+			self::Display("File does not exist. ($file_name)");
 			return false;
 		}
 		$saved_id  = file_get_contents($file_name);
