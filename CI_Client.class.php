@@ -103,14 +103,14 @@ class CI_Client implements IF_UNIT
 			return false;
 		}
 
-		//	Autoloader
-		if( file_exists('autoloader.php') ){
-			include_once('autoloader.php');
-		}
-
 		//	...
 		if( self::CheckCommitID() ){
 			return false;
+		}
+
+		//	Autoloader
+		if( file_exists('autoloader.php') ){
+			include_once('autoloader.php');
 		}
 
 		//	...
