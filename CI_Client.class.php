@@ -565,6 +565,8 @@ class CI_Client implements IF_UNIT
 		//	...
 		if( $io ){
 			self::Display("This branch is already inspected. ($branch)");
+		}else{
+			self::Display("Does not match commit ID: $commit_id, $saved_id");
 		}
 
 		//	...
