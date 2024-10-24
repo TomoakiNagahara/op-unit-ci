@@ -256,7 +256,7 @@ class CI_Client implements IF_UNIT
 	 * @param      object      $obj
 	 * @return     boolean     $io
 	 */
-	static function CI_Class(object $obj) : bool
+	static function CI_Class(       $obj) : bool
 	{
 		//	...
 		if(!isset(class_uses($obj, false)['OP\OP_CI']) ){
