@@ -40,14 +40,6 @@ class CI implements IF_UNIT, IF_CI
 	 */
 	use OP_CORE;
 
-	/**	Config
-	 *
-	 * @deprecated 2024-03-10 Should be separated to CI_Config.
-	 * @created    2022-10-15
-	 * @moved      2024-03-20  CI --> CI_Config
-	 * @var        array
-	 */
-	private $_config = [];
 
 	/**	Automatically code inspection.
 	 *
