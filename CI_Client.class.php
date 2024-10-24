@@ -514,7 +514,7 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		$branch    = self::Git()->Branch()->Current();
-		$commit_id = self::Git()->CurrentCommitID();
+		$commit_id = self::Git()->Commit()->ID();
 		$file_name = self::GenerateFilename();
 
 		//	...
