@@ -189,42 +189,6 @@ class CI implements IF_UNIT, IF_CI
 		return OP()->Unit('Git');
 	}
 
-	/**	Set Config.
-	 *
-	 * <pre>
-	 * //  Get CI Config instance.
-	 * $ci = OP()->Unit('CI')->Config();
-	 *
-	 * //  Set CI configuration.
-	 * $ci->Set('MethodName', 'result', 'args');
-	 *
-	 * //  Return CI configuration.
-	 * return $ci->Get();
-	 * </pre>
-	 *
-	 * @deprecated 2024-03-20
-	 * @created    2022-10-15
-	 * @moved      2023-02-22 op-core:/CI.class.php
-	 * @moved      2024-03-20 CI --> CI_Config
-	 * @param      string     $method
-	 * @param      array      $args
-	 * @param      array      $result
-	 */
-	function Set($method, $result, $args)
-	{
-		//	...
-		$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)[0];
-		$file  = $trace['file'];
-		$line  = $trace['line'];
-
-		//	...
-		$this->_config[$method][] = [
-			'result' => $result,
-			'args'   => $args,
-			'trace'  => [$file, $line],
-		];
-	}
-
 	/**	Generate Config.
 	 *
 	 * <pre>
