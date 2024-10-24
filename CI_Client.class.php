@@ -351,7 +351,7 @@ class CI_Client implements IF_UNIT
 	 * @param      array       $configs
 	 * @return     boolean     $io
 	 */
-	static function CI_Method(object $obj, string $method, array $config) : bool
+	static function CI_Method(       $obj, string $method, array $config) : bool
 	{
 			//	...
 			$trace  = $config['trace']  ?? null;
