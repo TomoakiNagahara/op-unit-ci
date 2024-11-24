@@ -20,6 +20,7 @@ namespace OP\UNIT;
  *
  */
 use OP\IF_UNIT;
+use OP\IF_CI;
 use OP\OP_CORE;
 use OP\UNIT\CI\CI_Client;
 use function OP\RootPath;
@@ -32,7 +33,7 @@ use function OP\RootPath;
  * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
-class CI implements IF_UNIT
+class CI implements IF_UNIT, IF_CI
 {
 	/**	use
 	 *
