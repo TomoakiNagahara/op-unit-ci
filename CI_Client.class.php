@@ -532,7 +532,7 @@ class CI_Client implements IF_UNIT
 		if( $io ){
 			self::Display("{$branch}:{$commit_id} --> {$file_name}");
 		}else{
-			self::Display("Failed save commit id. ($branch, $file_name)");
+			self::Display("Failed to save commit ID: `$branch` -> `$file_name`");
 		}
 	}
 
