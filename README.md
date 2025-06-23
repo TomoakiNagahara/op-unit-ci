@@ -9,37 +9,61 @@ CI is Code Inspection
 ## Standard
 
 ```php
-php ci.php
+./cicd
+```
+
+Execute to CI only.
+
+```php
+php .ci.php
 ```
 
 ## Dry-run
 
 ```php
-php ci.php dry-run=1
+./cicd dry-run=1
+```
+
+or
+
+```php
+./cicd test=1
 ```
 
 ## Specify the Unit
 
 ```php
-php ci.php unit=app
+./cicd unit=app
 ```
 
 ## Specify the path
 
 ```php
-php ci.php path=asset:/core
+./cicd path=asset:/core
 ```
 
 ## Specify the class
 
 ```php
-php ci.php path=asset:/core class=OP,Env
+./cicd unit=core class=OP
 ```
 
-## Specify the method
+or both class
 
 ```php
-php ci.php path=asset:/core class=OP method=Get,Set
+./cicd unit=core class=OP,Env
+```
+
+## Specify the method of class
+
+```php
+./cicd unit=core class=OP method=Get
+```
+
+or both method
+
+```php
+./cicd unit=core class=OP method=Get,Set
 ```
 
 # Technical information
