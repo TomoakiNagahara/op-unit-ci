@@ -1,24 +1,22 @@
 <?php
-/** op-unit-ci:/CI.class.php
+/**	op-unit-ci:/CI.class.php
  *
  * @created    2023-01-30
- * @version    1.0
- * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 
- /** Declare strict
+/**	Declare strict
  *
  */
 declare(strict_types=1);
 
-/** namespace
+/**	namespace
  *
  */
 namespace OP\UNIT;
 
-/** use
+/**	use
  *
  */
 use OP\IF_UNIT;
@@ -26,22 +24,22 @@ use OP\OP_CORE;
 use OP\UNIT\CI\CI_Client;
 use function OP\RootPath;
 
-/** ci
+/**	CI
  *
  * @created    2023-11-21
  * @version    1.0
  * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 class CI implements IF_UNIT
 {
-	/** use
+	/**	use
 	 *
 	 */
 	use OP_CORE;
 
-	/** Config
+	/**	Config
 	 *
 	 * @deprecated 2024-03-10 Should be separated to CI_Config.
 	 * @created    2022-10-15
@@ -50,7 +48,7 @@ class CI implements IF_UNIT
 	 */
 	private $_config = [];
 
-	/** Automatically code inspection.
+	/**	Automatically code inspection.
 	 *
 	 * @created     2023-11-21
 	 */
@@ -77,7 +75,7 @@ class CI implements IF_UNIT
 		return $io;
 	}
 
-	/** Git stash save to all repositories.
+	/**	Git stash save to all repositories.
 	 *
 	 * @created		2023-11-24
 	 */
@@ -89,7 +87,7 @@ class CI implements IF_UNIT
 		include(__DIR__.'/include/GitStashSave.php');
 	}
 
-	/** Git stash pop to saved repositories.
+	/**	Git stash pop to saved repositories.
 	 *
 	 * @created		2023-11-24
 	 */
@@ -101,7 +99,7 @@ class CI implements IF_UNIT
 		include(__DIR__.'/include/GitStashPop.php');
 	}
 
-	/** All submodules code inspection.
+	/**	All submodules code inspection.
 	 *
 	 * @created     2023-11-20
 	 * @return      bool
@@ -152,7 +150,7 @@ class CI implements IF_UNIT
 		return $io ?? false;
 	}
 
-	/** Single submodule code inspection.
+	/**	Single submodule code inspection.
 	 *
 	 * @created     2023-11-20
 	 * @return      bool
@@ -170,7 +168,7 @@ class CI implements IF_UNIT
 		return $io ?? false;
 	}
 
-	/** Check dry-run argument value.
+	/**	Check dry-run argument value.
 	 *
 	 * @created	 2023-11-22
 	 * @return	 boolean
@@ -180,7 +178,7 @@ class CI implements IF_UNIT
 		return CI_Client::Dryrun();
 	}
 
-	/** Return OP\UNIT\Git
+	/**	Return OP\UNIT\Git
 	 *
 	 * @created     2023-11-21
 	 * @return      Git
@@ -190,7 +188,7 @@ class CI implements IF_UNIT
 		return OP()->Unit('Git');
 	}
 
-	/** Set Config.
+	/**	Set Config.
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
@@ -226,7 +224,7 @@ class CI implements IF_UNIT
 		];
 	}
 
-	/** Generate Config.
+	/**	Generate Config.
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
@@ -255,7 +253,7 @@ class CI implements IF_UNIT
 		return $config;
 	}
 
-	/** Generate inspection file name.
+	/**	Generate inspection file name.
 	 *
 	 * @created	 2023-11-21
 	 * @param	 string		 $branch
@@ -266,7 +264,7 @@ class CI implements IF_UNIT
 		return CI_Client::GenerateFilename($branch);
 	}
 
-	/** Return CI Config instance.
+	/**	Return CI Config instance.
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
