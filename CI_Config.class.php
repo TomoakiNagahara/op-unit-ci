@@ -21,7 +21,7 @@ namespace OP\UNIT\CI;
  */
 use OP\OP_CI;
 use OP\OP_CORE;
-use OP\IF_UNIT;
+use OP\IF_CI_Config;
 
 /**	CI_Config
  *
@@ -31,7 +31,7 @@ use OP\IF_UNIT;
  * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
-class CI_Config implements IF_UNIT
+class CI_Config implements IF_CI_Config
 {
 	/**	use
 	 *
