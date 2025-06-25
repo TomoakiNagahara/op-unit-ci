@@ -1,46 +1,44 @@
 <?php
-/** op-unit-ci:/CI_Config.class.php
+/**	op-unit-ci:/CI_Config.class.php
  *
  * @created    2024-02-23
- * @version    1.0
- * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 
- /** Declare strict
+/**	Declare strict
  *
  */
 declare(strict_types=1);
 
-/** namespace
+/**	namespace
  *
  */
 namespace OP\UNIT\CI;
 
-/** use
+/**	use
  *
  */
 use OP\OP_CI;
 use OP\OP_CORE;
 use OP\IF_UNIT;
 
-/** CI_Config
+/**	CI_Config
  *
  * @created    2023-11-21
  * @version    1.0
  * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 class CI_Config implements IF_UNIT
 {
-	/** use
+	/**	use
 	 *
 	 */
 	use OP_CORE, OP_CI;
 
-	/** Config
+	/**	Config
 	 *
 	 * @created    2022-10-15
 	 * @moved      2024-03-20  CI --> CI_Config
@@ -48,7 +46,7 @@ class CI_Config implements IF_UNIT
 	 */
 	private $_config = [];
 
-	/** Set Config.
+	/**	Set Config.
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
@@ -83,7 +81,7 @@ class CI_Config implements IF_UNIT
 		];
 	}
 
-	/** Generate Config.
+	/**	Generate Config.
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
