@@ -1,52 +1,50 @@
 <?php
-/** op-unit-ci:/CI_Testcase.class.php
+/**	op-unit-ci:/CI_Testcase.class.php
  *
  * @created		2023-11-23
- * @version		1.0
- * @package		op-unit-ci
- * @author		Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author		Tomoaki Nagahara
  * @copyright	Tomoaki Nagahara All right reserved.
  */
 
- /** Declare strict
+/**	Declare strict
  *
  */
 declare(strict_types=1);
 
-/** namespace
+/**	namespace
  *
  */
 namespace OP\UNIT\CI;
 
-/** use
+/**	use
  *
  */
 use Exception;
 use OP\IF_UNIT;
 use OP\OP_CORE;
 
-/** CI_Testcase
+/**	CI_Testcase
  *
  * @created		2023-11-23
  * @version		1.0
  * @package		op-unit-ci
- * @author		Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author		Tomoaki Nagahara
  * @copyright	Tomoaki Nagahara All right reserved.
  */
 class CI_Testcase implements IF_UNIT
 {
-	/** use
+	/**	use
 	 *
 	 */
 	use OP_CORE;
 
-	/** PHP Built-in server process resource.
+	/**	PHP Built-in server process resource.
 	 *
 	 * @var resource
 	 */
 	private $_server;
 
-	/** Destruct
+	/**	Destruct
 	 *
 	 * @created		2022-11-10
 	 */
@@ -56,7 +54,7 @@ class CI_Testcase implements IF_UNIT
 		$this->_TestcaseServerDown();
 	}
 
-	/** Do the Testcase.
+	/**	Do the Testcase.
 	 *
 	 * @created		2023-04-25
 	 * @return		boolean
@@ -159,7 +157,7 @@ class CI_Testcase implements IF_UNIT
 		return !$fail;
 	}
 
-	/** Boot testcase web server.
+	/**	Boot testcase web server.
 	 *
 	 * @created     2023-10-23
 	 * @param       string      $php
@@ -212,7 +210,7 @@ class CI_Testcase implements IF_UNIT
 		}
 	}
 
-	/** Shutdown testcase web server.
+	/**	Shutdown testcase web server.
 	 *
 	 * @created     2023-10-23
 	 */
@@ -224,7 +222,7 @@ class CI_Testcase implements IF_UNIT
 		}
 	}
 
-	/** Kill zombie processes.
+	/**	Kill zombie processes.
 	 *
 	 * @created     2023-11-10
 	 * @param       string      $path
