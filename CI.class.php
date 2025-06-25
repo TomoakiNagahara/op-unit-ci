@@ -19,8 +19,8 @@ namespace OP\UNIT;
 /**	use
  *
  */
-use OP\IF_UNIT;
 use OP\IF_CI;
+use OP\IF_CI_Config;
 use OP\OP_CORE;
 use OP\UNIT\CI\CI_Client;
 use function OP\RootPath;
@@ -33,7 +33,7 @@ use function OP\RootPath;
  * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
-class CI implements IF_UNIT, IF_CI
+class CI implements IF_CI
 {
 	/**	use
 	 *
@@ -207,7 +207,7 @@ class CI implements IF_UNIT, IF_CI
 	 *
 	 * @return CI\CI_Config
 	 */
-	static function Config() : CI\CI_Config
+	static function Config() : IF_CI_Config
 	{
 		require_once(__DIR__.'/CI_Config.class.php');
 		return new CI\CI_Config();
