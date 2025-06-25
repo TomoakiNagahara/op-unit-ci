@@ -1,24 +1,22 @@
 <?php
-/** op-unit-ci:/CI_Client.class.php
+/**	op-unit-ci:/CI_Client.class.php
  *
  * @created    2024-03-10
- * @version    1.0
- * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 
-/** Declare strict
+/**	Declare strict
  *
  */
 declare(strict_types=1);
 
-/** namespace
+/**	namespace
  *
  */
 namespace OP\UNIT\CI;
 
-/** use
+/**	use
  *
  */
 use OP\IF_UNIT;
@@ -26,24 +24,24 @@ use OP\OP_CORE;
 use OP\DebugBacktrace;
 use function OP\RootPath;
 
-/** CI_Client
+/**	CI_Client
  *
  * @created    2023-01-30
  * @renamed    2023-11-21   CI --> CI_Client
  * @separated  2024-03-10   CI.class.php --> CI_Client.class.php
  * @version    1.0
  * @package    op-unit-ci
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 class CI_Client implements IF_UNIT
 {
-	/** use
+	/**	use
 	 *
 	 */
 	use OP_CORE;
 
-	/** Git
+	/**	Git
 	 *
 	 * @created    2023-02-05
 	 * @return    \OP\UNIT\Git
@@ -57,7 +55,7 @@ class CI_Client implements IF_UNIT
 		return $_git;
 	}
 
-	/** Automatically CI
+	/**	Automatically CI
 	 *
 	 * @return	 bool
 	 */
@@ -71,7 +69,7 @@ class CI_Client implements IF_UNIT
 		return $io;
 	}
 
-	/** Init
+	/**	Init
 	 *
 	 * @created    2023-02-05
 	 * @return     bool       If true, CI is necessary.
@@ -117,7 +115,7 @@ class CI_Client implements IF_UNIT
 		return true;
 	}
 
-	/** CI
+	/**	CI
 	 *
 	 * @created    2023-02-05
 	 * @return     boolean
@@ -179,7 +177,7 @@ class CI_Client implements IF_UNIT
             }
             */
 
-			/** Join namespace to class name.
+			/**	Join namespace to class name.
 			 *
 			 *  If included namespace in file name.
 			 *  1. Foo-Bar.class.php
@@ -199,7 +197,7 @@ class CI_Client implements IF_UNIT
 			$names = $names ? join('\\', $names).'\\': '';
 			$names = strtoupper($names);
 			}else{
-				/** If not included namespace in file name.
+				/**	If not included namespace in file name.
 				 *
 				 *  # main class
 				 *  1. Foo.class.php
@@ -252,7 +250,7 @@ class CI_Client implements IF_UNIT
         return true;
 	}
 
-	/** CI each Classes.
+	/**	CI each Classes.
 	 *
 	 * @created    2023-02-10
 	 * @param      object      $obj
@@ -283,7 +281,7 @@ class CI_Client implements IF_UNIT
 		//	Get CI Configs for that instance.
 		require_once(__DIR__.'/function/CIConfig.php');
 		$configs = CIConfig($obj);
-		/** If $configs is empty, throw Exception in CIConfig().
+		/**	If $configs is empty, throw Exception in CIConfig().
 		 * @deprecated 2024-03-10
 		if( empty($configs) ){
 			return false;
@@ -345,7 +343,7 @@ class CI_Client implements IF_UNIT
         return true;
 	}
 
-	/** CI Class each Methods.
+	/**	CI Class each Methods.
 	 *
 	 * @created    2023-02-10
 	 * @param      object      $obj
@@ -443,7 +441,7 @@ class CI_Client implements IF_UNIT
 		return true;
 	}
 
-	/** CI Class Method each Arguments.
+	/**	CI Class Method each Arguments.
 	 *
 	 * @created    2023-02-10
 	 * @param      object      $obj
@@ -483,7 +481,7 @@ class CI_Client implements IF_UNIT
 		}
 	}
 
-	/** Generate Commit ID saved file name.
+	/**	Generate Commit ID saved file name.
 	 *
 	 * @created    2023-02-10
 	 * @param      string      $branch
@@ -503,7 +501,7 @@ class CI_Client implements IF_UNIT
 		return $file_name;
 	}
 
-	/** Save inspected branch commit id.
+	/**	Save inspected branch commit id.
 	 *
 	 * @created    2023-02-10
 	 */
@@ -536,7 +534,7 @@ class CI_Client implements IF_UNIT
 		}
 	}
 
-	/** Check if current commit id and saved commit id then already checked.
+	/**	Check if current commit id and saved commit id then already checked.
 	 *
 	 * @created    2023-02-10
 	 * @return     boolean		true is already inspected.
@@ -574,7 +572,7 @@ class CI_Client implements IF_UNIT
 		return $io;
 	}
 
-	/** Display message.
+	/**	Display message.
 	 *
 	 * @created    2023-02-10
 	 * @param      string      $message
@@ -604,7 +602,7 @@ class CI_Client implements IF_UNIT
 		echo "{$current_dir} - {$message}\n";
 	}
 
-	/** Dry run check.
+	/**	Dry run check.
 	 *
 	 * @return boolean
 	 */
