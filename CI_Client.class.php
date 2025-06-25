@@ -468,8 +468,8 @@ class CI_Client implements IF_UNIT
 			ob_end_clean();
 
 			//	Overwrite result by Notice.
-			if( OP()->Notice()->Has() ){
-				$notice = OP()->Notice()->Pop();
+			if( OP()->Error()->Has() ){
+				$notice = \OP\Error()->Pop();
 				$result = 'Notice: '.$notice['message'];
 				$traces = $notice['backtrace'];
 			}
