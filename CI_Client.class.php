@@ -530,7 +530,7 @@ class CI_Client implements IF_UNIT
 		if( $io ){
 			self::Display("{$branch}:{$commit_id} --> {$file_name}");
 		}else{
-			self::Display("Failed to save commit ID: `$branch` -> `$file_name`");
+			self::Display("Failed to save commit ID: $branch -> $file_name");
 		}
 	}
 
@@ -553,7 +553,7 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if(!file_exists($file_name) ){
-			self::Display("The file does not exist: `$file_name`");
+			self::Display("The file does not exist: $file_name");
 			return false;
 		}
 		$saved_id  = file_get_contents($file_name);
@@ -563,7 +563,7 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if( $io ){
-			self::Display("This branch has already been inspected: `$branch`");
+			self::Display("This branch has already been inspected: $branch");
 		}else{
 			self::Display("Does not match the commit ID: $commit_id != $saved_id");
 		}
