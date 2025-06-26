@@ -146,7 +146,7 @@ class CI_Client implements IF_UNIT
 			}
 		}else{
 			//	Inspect all classes.
-			$globed = glob('*.class.php');
+			$globed = glob('*.class.php') + glob('class/*.class.php');
 		}
 
 		//	Get each class file.
