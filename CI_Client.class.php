@@ -97,7 +97,7 @@ class CI_Client implements IF_UNIT
 		//	...
 		if(!file_exists('.git') ){
 			$current = getcwd();
-			OP()->Notice("Does not found .git directory.(current={$current})");
+			OP()->Error("Does not found .git directory.(current={$current})");
 			return false;
 		}
 
