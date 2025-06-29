@@ -268,7 +268,7 @@ class CI_Client implements IF_UNIT
 			return false;
 		}
 
-		//	You can specify and inspect onnly a specific method.
+		//	You can specify and inspect only a specific method.
 		if( $method_list = OP()->Request('method') ){
 			$methods = [];
 			foreach( explode(',', $method_list) as $method_name ){
@@ -469,7 +469,7 @@ class CI_Client implements IF_UNIT
 
 			//	Overwrite result by Notice.
 			if( OP()->Error()->Has() ){
-				$notice = \OP\Error()->Pop();
+				$notice = OP()->Error()->Pop();
 				$result = 'Notice: '.$notice['message'];
 				$traces = $notice['backtrace'];
 			}
