@@ -357,12 +357,14 @@ class CI_Client implements IF_UNIT
 			$trace  = $config['trace']  ?? null;
 			$expect = $config['result'] ?? null;
 			$arg    = $config['args']   ?? null;
+			$prepare= $config['prepare']?? null;
+			$cleanup= $config['cleanup']?? null;
 			$args   = is_array($arg) ? $arg: [$arg];
 			$result = null;
 			$traces = null;
 
 			//	Inspect each args.
-			self::CI_Args($obj, $method, $args, $result, $traces);
+			self::CI_Args($obj, $method, $args, $result, $traces, $prepare, $cleanup);
 
 			//	If result is object.
 			if( is_object($result) ){
