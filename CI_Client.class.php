@@ -451,8 +451,10 @@ class CI_Client implements IF_UNIT
 	 * @param      array       $args
 	 * @param      array       $result
 	 * @param      array       $traces
+	 * @param     'function'   $prepare
+	 * @param     'function'   $cleanup
 	 */
-	static function CI_Args(object $obj, string $method, array $args, /* php82 null */ &$result, /* php82 null */ &$traces)
+	static function CI_Args(object $obj, string $method, array $args, /* php82 null */ &$result, /* php82 null */ &$traces, $prepare, $cleanup)
 	{
 		//	...
 		$traces = null;
@@ -461,12 +463,26 @@ class CI_Client implements IF_UNIT
 		try {
 			//	Inspection.
 			ob_start();
+
+			//	...
+			if( $prepare and is_callable($prepare) ){
+				$prepare();
+			}
+
+			//	...
 			if(!$result = $obj->CI_Inspection($method, ...$args) ){
 				//	If empty return value, evaluate contents.
 				if( $contents = ob_get_contents() ){
 					$result   = $contents;
 				}
 			}
+
+			//	...
+			if( $cleanup and is_callable($cleanup) ){
+				$cleanup();
+			}
+
+			//	...
 			ob_end_clean();
 
 			//	Overwrite result by Notice.
