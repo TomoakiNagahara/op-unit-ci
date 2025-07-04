@@ -65,8 +65,10 @@ class CI_Config implements IF_CI_Config
 	 * @param      string      $method
 	 * @param      array       $args
 	 * @param      array       $result
+	 * @param     'function'   $prepare
+	 * @param     'function'   $cleanup
 	 */
-	function Set($method, $result, $args)
+	function Set($method, $result, $args, $prepare=null, $cleanup=null)
 	{
 		//	...
 		$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)[0];
@@ -74,10 +76,21 @@ class CI_Config implements IF_CI_Config
 		$line  = $trace['line'];
 
 		//	...
+		foreach( ['prepare','cleanup'] as $name ){
+			if( ${$name} ){
+				if(!is_callable(${$name}) ){
+					OP()->Error("{$name} is not function.");
+				}
+			}
+		}
+
+		//	...
 		$this->_config[$method][] = [
 			'result' => $result,
 			'args'   => $args,
 			'trace'  => [$file, $line],
+			'prepare'=> $prepare, // Run the pre-function during CI.
+			'cleanup'=> $cleanup, // Run the post-function during CI.
 		];
 	}
 
