@@ -45,18 +45,18 @@ try {
 	OP::Time(false, '2024-01-01 23:45:60');
 
 	//	...
-	if(!OP::Unit('CI')->Auto() ){
+	if(!OP::Unit()->CI()->Auto() ){
 		$exit = __LINE__;
 		return;
 	}
 
 	//	...
-	if( OP::Unit('CI')->Dryrun() ){
+	if( OP::Unit()->CI()->Dryrun() ){
 		return;
 	}
 
 	//	...
-	OP::Unit('CD')->Auto();
+	OP::Unit()->CD()->Auto();
 	if( OP::Request('display') ){
 		echo "\n";
 	}
