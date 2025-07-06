@@ -44,5 +44,12 @@ foreach( $configs as $config ){
 	GIT_STASH\Save("{$git_root}/{$config['path']}");
 }
 
+//	op-core
+chdir("{$git_root}/asset/core/");
+$configs = \OP\UNIT\GIT\SubmoduleConfig();
+foreach( $configs as $config ){
+	GIT_STASH\Save("{$git_root}/asset/core/{$config['path']}");
+}
+
 //	...
 chdir($current_dir);
