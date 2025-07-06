@@ -59,3 +59,25 @@ foreach( $configs as $config ){
 
 //	...
 chdir($current_dir);
+
+/**	namespace
+ *
+ */
+namespace OP\UNIT\CI\GIT_STASH;
+
+/**	Do git stash save.
+ *
+ * @created    2025-07-06
+ * @param      string     $path
+ */
+function Pop( string $path )
+{
+	//	...
+	chdir($path);
+
+	//	...
+	if( OP()->Unit()->Git()->Stash()->Pop() ){
+		//	...
+		\OP\UNIT\CI\Display("git stash pop : {$path}");
+	}
+}
