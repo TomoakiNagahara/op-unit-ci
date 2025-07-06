@@ -586,9 +586,17 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if(!file_exists($file_name) ){
-			self::Display("The file does not exist: $file_name");
+			self::Display("This file does not exist: $file_name");
 			return false;
 		}
+
+		//	Check the timestamp of the previous CI.
+		if( filemtime($file_name) < time() - (60*60*1) ){
+			self::Display("This file has not been CI for a hour: $file_name");
+			return false;
+		}
+
+		//	Get saved commit id.
 		$saved_id  = file_get_contents($file_name);
 
 		//	...
