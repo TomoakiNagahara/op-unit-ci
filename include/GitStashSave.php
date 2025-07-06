@@ -26,7 +26,7 @@ require_once(__DIR__.'/../function/GetSubmoduleConfig.php');
 $current_dir = getcwd();
 
 //	...
-$git_root = \OP\RootPath('git');
+$git_root = _ROOT_GIT_;
 
 /*
 //	...
