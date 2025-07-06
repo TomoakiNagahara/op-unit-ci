@@ -579,6 +579,12 @@ class CI_Client implements IF_UNIT
 			return false;
 		}
 
+		//	Check if op-core
+		if( realpath(getcwd()) === realpath(_ROOT_CORE_) ){
+			`git add .`;
+			`git commit -m "CI: Auto commit submodules."`;
+		}
+
 		//	...
 		$branch    = self::Git()->Branch()->Current();
 		$commit_id = self::Git()->Commit()->ID();
