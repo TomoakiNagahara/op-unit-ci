@@ -24,6 +24,11 @@ define('_OP_APP_START_', microtime(true));
  */
 define('_IS_CI_', true);
 
+/**	Set time zone
+ *
+ */
+date_default_timezone_set('Asia/Tokyo');
+
 //	Start CI/CD process
 try {
 	//	Exit code
