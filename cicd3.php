@@ -56,7 +56,11 @@ try {
 	}
 
 	//	...
-	OP::Unit()->CD()->Auto();
+	if( OP::Request('cd') ?? true ){
+		OP::Unit()->CD()->Auto();
+	}
+
+	//	...
 	if( OP::Request('display') ){
 		echo "\n";
 	}
