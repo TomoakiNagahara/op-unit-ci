@@ -370,6 +370,7 @@ class CI_Client implements IF_UNIT
 			$arg    = $config['args']   ?? null;
 			$prepare= $config['prepare']?? null;
 			$cleanup= $config['cleanup']?? null;
+			$message= $config['message']?? null;
 			$args   = is_array($arg) ? $arg: [$arg];
 			$result = null;
 			$traces = null;
@@ -393,6 +394,7 @@ class CI_Client implements IF_UNIT
 				//	...
 				if( $trace ){
 					echo " --> {$trace[0]} #{$trace[1]}\n";
+					echo "\n  {$message}\n";
 				}else{
 					$class_name = get_class($obj);
 					echo "\n{$class_name} -> {$method}() is not defined in CI config.\n";
