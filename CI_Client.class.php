@@ -388,14 +388,14 @@ class CI_Client implements IF_UNIT
 				include_once(__DIR__.'/function/Serialize.php');
 				$class = get_class($obj);
 				$pson  = is_null($config['args']) ? null: Serialize($args);
-				echo "\n{$class}->{$method}({$pson}) is not match expect and result.\n";
+				echo "\n{$class}->{$method}({$pson}) does not match the expected result.\n";
 
 				//	...
 				if( $trace ){
 					echo " --> {$trace[0]} #{$trace[1]}\n";
 				}else{
 					$class_name = get_class($obj);
-					echo "\n{$class_name} -> {$method}() is not define in ci config.\n";
+					echo "\n{$class_name} -> {$method}() is not defined in CI config.\n";
 				}
 
 				//	...
