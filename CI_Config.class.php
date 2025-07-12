@@ -59,6 +59,8 @@ class CI_Config implements IF_UNIT
 	 * return $ci->Get();
 	 * </pre>
 	 *
+	 * {@inheritDoc}
+	 * @see \OP\IF_CI_Config::Set()
 	 * @created    2022-10-15
 	 * @moved      2023-02-22  op-core:/CI.class.php --> op-unt-ci:/CI.class.php
 	 * @moved      2024-03-20  CI --> CI_Config
@@ -67,8 +69,9 @@ class CI_Config implements IF_UNIT
 	 * @param      array       $result
 	 * @param     'function'   $prepare
 	 * @param     'function'   $cleanup
+	 * @param      string      $message
 	 */
-	function Set($method, $result, $args, $prepare=null, $cleanup=null)
+	function Set($method, $result, $args, $prepare=null, $cleanup=null, $message=null)
 	{
 		//	...
 		$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)[0];
@@ -91,6 +94,7 @@ class CI_Config implements IF_UNIT
 			'trace'  => [$file, $line],
 			'prepare'=> $prepare, // Run the pre-function during CI.
 			'cleanup'=> $cleanup, // Run the post-function during CI.
+			'message'=> $message, // Error message to be displayed when config is missing.
 		];
 	}
 
