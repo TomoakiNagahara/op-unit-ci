@@ -575,7 +575,7 @@ class CI_Client implements IF_UNIT
 	static function CheckCommitID():bool
 	{
 		//	...
-		if( OP()->Request('force') or OP()->Request('unit') ){
+		if( OP()->Request('force') or self::Dryrun() ){
 			return false;
 		}
 
