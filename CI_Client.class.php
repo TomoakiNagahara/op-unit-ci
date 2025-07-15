@@ -580,9 +580,11 @@ class CI_Client implements IF_UNIT
 		}
 
 		//	Check if op-core
+		if( _OP_APP_BRANCH_ === 2030 ){
 		if( realpath(getcwd()) === realpath(_ROOT_CORE_) ){
 			`git add .`;
 			`git commit -m "CI: Auto commit submodules."`;
+		}
 		}
 
 		//	...
