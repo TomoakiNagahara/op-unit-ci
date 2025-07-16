@@ -192,7 +192,7 @@ class CI implements IF_CI
 
 			}
 		}catch( \Throwable $e ){
-			OP()->Notice($e);
+			OP()->Error($e);
 		}
 
 		//	...
