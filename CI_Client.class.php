@@ -646,7 +646,7 @@ class CI_Client implements IF_UNIT
 		}
 
 		//	...
-		$current_dir = OP()->MetaPath()->Encode(getcwd());
+		$current_dir = OP()->Path( getcwd() ?? '' );
 		if( $_padding < strlen($current_dir) ){
 			$_padding = strlen($current_dir);
 		}
