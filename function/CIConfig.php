@@ -71,7 +71,7 @@ function CIConfig(&$object) : array
 	$path = ($unit ?? null) ? "{$meta}:/{$unit}/ci/{$name}.php" : "{$meta}:/ci/{$name}.php";
 
 	//	...
-	if(!file_exists( OP()->MetaPath($path) ) ){
+	if(!file_exists( OP()->Path($path) ) ){
 		throw new \Exception("This file does not exist. ($path)");
 	}
 	*/
@@ -98,7 +98,7 @@ function CIConfig(&$object) : array
 
 	//	...
 	if( file_exists($path) ){
-		$path = OP()->MetaPath($path);
+		$path = OP()->Path($path);
 	}else{
 		throw new \Exception("This file does not exist. ($path)");
 	}

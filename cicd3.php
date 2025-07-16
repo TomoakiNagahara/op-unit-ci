@@ -91,7 +91,7 @@ try {
 	$message = $e->getMessage();
 	$file    = $e->getFile();
 	$line    = $e->getLine();
-	$file    = OP()->MetaPath($file);
+	$file    = OP()->Path($file);
 
 	//	...
 	echo "\n";

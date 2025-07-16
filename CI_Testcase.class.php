@@ -66,7 +66,7 @@ class CI_Testcase implements IF_UNIT
 		$port = rand(8900,8999);
 		$url  = "localhost:{$port}";
 		$php  = $_SERVER['_'];
-		$app  = OP()->MetaPath('app:/');
+		$app  = OP()->Path('app:/');
 
 		//  ...
 		$this->_TestcaseServer($php, $app, $url, $port);
