@@ -60,11 +60,6 @@ try {
 		}
 	}
 
-	//	...
-	if( OP::Request('display') ){
-		echo "\n";
-	}
-
 } catch ( \Throwable $e ){
 	//	...
 	$message = $e->getMessage();
@@ -81,6 +76,12 @@ try {
 
 	//	...
 	$exit = __LINE__;
+}
+
+//	...
+if( OP::Request('display') ){
+	echo "\n";
+	echo "exit={$exit}\n\n";
 }
 
 //	exit
