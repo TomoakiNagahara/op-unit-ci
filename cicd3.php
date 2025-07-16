@@ -26,6 +26,9 @@ define('_IS_CI_', true);
 
 //	...
 try {
+	//	...
+	$exit = 0;
+
 	//	Set app root.
 	$_SERVER['APP_ROOT'] = realpath(__DIR__.'/../../../');
 
@@ -47,17 +50,14 @@ try {
 	//	...
 	if(!OP::Unit()->CI()->Auto() ){
 		$exit = __LINE__;
-		return;
 	}
 
 	//	...
-	if( OP::Unit()->CI()->Dryrun() ){
-		return;
-	}
-
-	//	...
-	if( OP::Request('cd') ?? true ){
-		OP::Unit()->CD()->Auto();
+	if(!OP::Unit()->CI()->Dryrun() ){
+		//	...
+		if( OP::Request('cd') ?? true ){
+			OP::Unit()->CD()->Auto();
+		}
 	}
 
 	//	...
@@ -84,4 +84,4 @@ try {
 }
 
 //	exit
-exit($exit ?? 0);
+exit($exit);
