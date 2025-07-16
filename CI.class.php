@@ -213,7 +213,7 @@ class CI implements IF_CI
 		try{
 			$io = CI_Client::Auto();
 		}catch( \Throwable $e ){
-			OP()->Notice($e);
+			OP()->Error($e);
 		}
 
 		//	...
