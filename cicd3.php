@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-/**	op-unit-ci:/cicd
+/**	op-unit-ci:/cicd3.php
  *
  * @created    2025-06-24
  * @version    3.0
@@ -24,37 +24,55 @@ define('_OP_APP_START_', microtime(true));
  */
 define('_IS_CI_', true);
 
-//	...
+//	Start CI/CD process
 try {
-	//	...
+	//	Exit code
 	$exit = 0;
 
-	//	Set app root.
-	$_SERVER['APP_ROOT'] = realpath(__DIR__.'/../../../');
+	//	Calc app root from current working directory.
+	$pwd = $_SERVER['PWD'];
+	do{
+		//	Search for app root by detecting app.php
+		if( file_exists("{$pwd}/app.php") ){
+			//	Found
+			break;
+		}
+		//	Move to parent directory.
+		$pwd = dirname($pwd);
+		//	Not found.
+	}while( $pwd !== '/' );
+
+	//	...
+	if( $pwd === '/' ){
+		exit(__LINE__);
+	}
+
+	//	Set app root path.
+	$_SERVER['APP_ROOT'] = $pwd . '/';
 
 	//	Change to app directory.
 	chdir($_SERVER['APP_ROOT']);
 
-	//	Bootstrap process.
+	//	Bootstrap application.
 	if( file_exists( $file = './asset/bootstrap/index.php' ) ){
-		//	Execute
+		//	Execute bootstrap
 		include_once($file);
 	}else{
-		//	Git submodules have not been initialized.
+		//	Display guidance if git submodules have not been initialized.
 		include_once('./asset/init/guidance.php');
 	}
 
 	//	Time is frozen - ICE AGE
 	OP::Time(false, '2024-01-01 23:45:60');
 
-	//	...
+	//	Run CI Auto process.
 	if(!OP::Unit()->CI()->Auto() ){
 		$exit = __LINE__;
 	}
 
-	//	...
+	//	Run CD Auto process if not dry-run.
 	if(!OP::Unit()->CI()->Dryrun() ){
-		//	...
+		//	Run CD only if `cd` parameter is true or not set.
 		if( OP::Request('cd') ?? true ){
 			OP::Unit()->CD()->Auto();
 		}
