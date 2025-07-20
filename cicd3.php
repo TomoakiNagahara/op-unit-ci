@@ -70,12 +70,15 @@ try {
 		$exit = __LINE__;
 	}
 
+	//	CI is clear.
+	if( empty($exit) ){
 	//	Run CD Auto process if not dry-run.
 	if(!OP::Unit()->CI()->Dryrun() ){
 		//	Run CD only if `cd` parameter is true or not set.
 		if( OP::Request('cd') ?? true ){
 			OP::Unit()->CD()->Auto();
 		}
+	}
 	}
 
 } catch ( \Throwable $e ){
