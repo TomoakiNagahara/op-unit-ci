@@ -5,7 +5,7 @@
  * @created    2023-02-11
  * @version    2.2.0
  * @package    op-core
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 
