@@ -18,7 +18,7 @@ declare(strict_types=1);
  */
 namespace OP\UNIT\CI;
 
-/** Get gitsubmodule config.
+/** Get git submodule config.
  *
  * @return array
  */
@@ -52,7 +52,13 @@ function GetSubmoduleConfig() : array
 					],
 				];
 			}
-
+		}else if( $module = OP()->Request('module') ){
+			$module = strtolower($module);
+			$configs = [
+				$module => [
+					'path' => "asset/module/{$module}",
+				],
+			];
 		}else
 
 		//	...
