@@ -73,14 +73,14 @@ function CIConfig(&$object) : array
 		//	core
 		$path = "{$asset_root}core/ci/{$name}.php";
 	}else{
-		//	unit
-		$path = "{$asset_root}unit/{$unit}/ci/{$name}.php";
+		//	unit or module
+		$path = "{$asset_root}{$meta}/{$unit}/ci/{$name}.php";
 		//	If file name is included namespace.
 		if(!file_exists($path) ){
 			//	Trim namespace from file name.
 			if( $pos  = strpos($name, '-') ){
 				$name = substr($name, $pos+1); // Unit-Name --> Name
-				$path = "{$asset_root}unit/{$unit}/ci/{$name}.php";
+				$path = "{$asset_root}{$meta}/{$unit}/ci/{$name}.php";
 			}
 		}
 	}
