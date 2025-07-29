@@ -73,6 +73,11 @@ function Save( string $path )
 	chdir($path);
 
 	//	...
+	if(!file_exists('.git') ){
+		`git add .`;
+	}
+
+	//	...
 	if( OP()->Unit()->Git()->Stash()->Save() ){
 		//	...
 		\OP\UNIT\CI\Display("git stash save : {$path}");
