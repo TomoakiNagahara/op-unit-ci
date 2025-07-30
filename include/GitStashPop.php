@@ -28,18 +28,22 @@ $current_dir = getcwd();
 //	...
 $git_root = \OP\RootPath('git');
 
+/*
 //	...
 chdir($git_root);
 if( self::Git()->Stash()->Pop() ){
 	//	...
 	Display("git stash pop : {$git_root}");
 }
+*/
+GIT_STASH\Pop($git_root);
 
 //	...
 $configs = GetSubmoduleConfig();
 
 //	...
 foreach( $configs as $config ){
+	/*
 	//	...
 	$path = $config['path'];
 	//	...
@@ -48,6 +52,8 @@ foreach( $configs as $config ){
 	if( self::Git()->Stash()->Pop() ){
 		Display("git stash pop : {$path}");
 	}
+	*/
+	GIT_STASH\Pop("{$git_root}/{$config['path']}");
 }
 
 //	op-core
