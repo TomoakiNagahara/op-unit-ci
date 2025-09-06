@@ -17,11 +17,11 @@ COMMAND=$(ps -ocommand= -p $PPID)
 # Parse
 ARRAY=(${COMMAND//,/ })
 REMOTE=${ARRAY[2]}
-BRANCH=`git rev-parse --abbrev-ref HEAD`
+BRANCH=`git rev-parse --abbrev-ref HEAD` # --> .ci_commit_id_heads/2030_php82
+BRANCH=`git symbolic-ref --short HEAD`   # --> .ci_commit_id_2030_php82
 PHP=`php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;"`
 
 # Get current branch name
-#BRANCH=`git rev-parse --abbrev-ref HEAD`
 if [ ! $BRANCH ]; then
   echo "ci.sh: Empty branch name."
   exit 1
