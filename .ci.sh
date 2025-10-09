@@ -19,8 +19,8 @@ ARRAY=(${COMMAND//,/ })
 REMOTE=${ARRAY[2]}
 BRANCH=`git rev-parse --abbrev-ref HEAD` # --> .ci_commit_id_heads/2030_php82
 BRANCH=`git symbolic-ref --short HEAD`   # --> .ci_commit_id_2030_php82
-# If ARRAY[3] exists and is not empty, use it. Otherwise fallback to current branch.
-if [ -n "${ARRAY[3]}" ]; then
+# If ARRAY[3] exists, and is not empty, and contains only alphanumeric characters, use it. Otherwise fallback to current branch.
+if [[ -n "${ARRAY[3]}" && "${ARRAY[3]}" =~ ^[a-zA-Z0-9]+$ ]]; then
     BRANCH="${ARRAY[3]}"
 else
     BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
