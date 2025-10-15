@@ -16,7 +16,16 @@ COMMAND=$(ps -ocommand= -p $PPID)
 
 # Parse
 ARRAY=(${COMMAND//,/ })
-REMOTE=${ARRAY[2]}
+
+# Remote
+REMOTE=${ARRAY[2]:-} # If undefined.
+if [ "$REMOTE" = "local" ]; then
+    # If remote is local, the process will terminate normally.
+    echo "Skip: REMOTE is local."
+    exit 0
+fi
+
+# Branch
 BRANCH=`git rev-parse --abbrev-ref HEAD` # --> .ci_commit_id_heads/2030_php82
 BRANCH=`git symbolic-ref --short HEAD`   # --> .ci_commit_id_2030_php82
 # If ARRAY[3] exists, and is not empty, and contains only alphanumeric characters, use it. Otherwise fallback to current branch.
