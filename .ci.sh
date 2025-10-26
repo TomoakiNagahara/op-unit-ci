@@ -64,12 +64,18 @@ CI_COMMIT_ID=`cat $CI_FILE`
 #echo $CI_COMMIT_ID
 
 # Get correct commit id
-COMMIT_ID=`git rev-parse $BRANCH`
-#echo $COMMIT_ID
+# COMMIT_ID=`git rev-parse $BRANCH` # --> warning: refname '2026' is ambiguous.
+COMMIT_ID=$(git rev-parse refs/heads/$BRANCH 2>/dev/null)
+if [ $? -ne 0 ]; then
+    echo "ERROR: This branch has not been exists: $BRANCH"
+    echo $COMMIT_ID
+    exit 1
+fi
+# echo $COMMIT_ID
 
 #
 if [ "$COMMIT_ID" != "$CI_COMMIT_ID" ]; then
-  echo "ci.sh: Unmatch commit id"
+  echo ".ci.sh: Unmatch commit id"
   echo $COMMIT_ID branch=$BRANCH
   echo $CI_COMMIT_ID $CI_FILE
   exit 1
