@@ -25,6 +25,12 @@ if( $php === './cicd' ){
     $php = 'php';
 }
 
+//	Check if PHP version for php7.x
+if( PHP_MAJOR_VERSION != 7 ){
+	echo "PHP version is not 7.x: Current --> " . PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.PHP_EOL;
+	exit(__LINE__);
+}
+
 //	Get git root.
 if(!$git_root = trim(`git rev-parse --show-superproject-working-tree` ?? '') ){
 	echo 'Get git root is failed #'.__LINE__;
