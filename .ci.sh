@@ -38,7 +38,7 @@ PHP=`php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;"`
 
 # Get current branch name
 if [ ! $BRANCH ]; then
-  echo "ci.sh: Empty branch name."
+  echo ".ci.sh: Empty branch name."
   exit 1
 fi
 
@@ -55,7 +55,7 @@ CI_FILE=".ci_commit_id_"$BRANCH"_php"$PHP
 
 # Check if file exists
 if [ ! -f $CI_FILE ]; then
-  echo "ci.sh: Does not file exists. ($CI_FILE)"
+  echo ".ci.sh: Does not file exists. ($CI_FILE)"
   exit 1
 fi
 
