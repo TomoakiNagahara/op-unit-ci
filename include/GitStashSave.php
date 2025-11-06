@@ -70,6 +70,12 @@ namespace OP\UNIT\CI\GIT_STASH;
 function Save( string $path )
 {
 	//	...
+	if(!is_dir($path) ){
+		OP()->Error("");
+		return false;
+	}
+
+	//	...
 	chdir($path);
 
 	//	...
