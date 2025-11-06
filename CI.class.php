@@ -101,6 +101,7 @@ class CI implements IF_UNIT, IF_CI
 	{
 		//	...
 		$save_dir = getcwd();
+		$git_root = RootPath('git');
 
 		//	...
 		try{
@@ -113,8 +114,17 @@ class CI implements IF_UNIT, IF_CI
 
 			//	Each submodule repositories.
 			foreach( $configs as $config ){
-				$path = $config['path'];
-				chdir(RootPath('git') . $path);
+				//	...
+				$path = $git_root . $config['path'];
+
+				//	...
+				if(!is_dir($path) ){
+					OP()->Error("This path is not directory: {$path}");
+					continue;
+				}
+
+				//	...
+				chdir($path);
 
 				//	...
 				if(!$io = self::Single() ){
