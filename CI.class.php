@@ -40,6 +40,15 @@ class CI implements IF_UNIT, IF_CI
 	 */
 	use OP_CORE;
 
+	/**	Check if the current process is running on GitHub Actions
+	 *
+	 * @created    2025-12-09
+	 * @return     bool
+	 */
+	static function isGitHubActions() : bool
+	{
+		return getenv('GITHUB_ACTIONS') === 'true';
+	}
 
 	/**	Automatically code inspection.
 	 *
