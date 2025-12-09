@@ -50,10 +50,15 @@ class CI_Config implements IF_UNIT
 	 *
 	 * <pre>
 	 * //  Get CI Config instance.
-	 * $ci = OP()->Unit('CI')->Config();
+	 * $ci = OP()->Unit()->CI()->Config();
 	 *
 	 * //  Set CI configuration.
-	 * $ci->Set('MethodName', 'result', 'args');
+	 * $ci->Set('MethodName', 'result', 'args', message:'This is simple test.');
+	 *
+	 * //  Set with prepare and cleanup.
+	 * $prepare = function(){ OP()->Html('before'); };
+	 * $cleanup = function(){ OP()->Html('after');  };
+	 * $ci->Set('MethodName', 'result', 'args', $prepare, $cleanup);
 	 *
 	 * //  Return CI configuration.
 	 * return $ci->Get();
