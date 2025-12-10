@@ -30,7 +30,7 @@ function GetSubmoduleConfig() : array
 	//	...
 	if( empty($configs) ){
 		//	...
-		$git_root = \OP\RootPath('git');
+		$git_root = OP()->Path('git:/');
 
 		//	If the unit name specified.
 		if( $unit = OP()->Request('unit') ){
