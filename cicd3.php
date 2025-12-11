@@ -63,7 +63,7 @@ try {
 	}
 
 	//	Time is frozen - ICE AGE
-	OP::Time(false, '2024-01-01 23:45:60');
+	OP::Time('2024-01-01 23:45:60');
 
 	//	Run CI Auto process.
 	if(!OP::Unit()->CI()->Auto() ){
