@@ -232,6 +232,9 @@ class CI_Client implements IF_UNIT
 			if(!self::CI_Class($obj) ){
 				return false;
 			}
+
+			//	...
+			unset($obj);
 		}
 
         /*
