@@ -63,7 +63,22 @@ function GetSubmoduleConfig() : array
 
 		//	...
 		if( file_exists("{$git_root}.gitmodules") ){
+			//	...
 			$configs = OP()->Unit('Git')->SubmoduleConfig();
+
+			//	...
+			foreach(['unit','module','layout','webpack'] as $type ){
+				//	...
+				$root = _ROOT_GIT_;
+				$slen = strlen($root)+1;
+				foreach( glob("{$root}/asset/{$type}/*", GLOB_ONLYDIR) as $path ){
+					$path = substr($path, $slen);
+					$name = explode('/', $path)[2];
+					$configs["asset-{$type}-{$name}"] = [
+						'path' => $path,
+					];
+				}
+			}
 		}else{
 			$configs = include(__DIR__.'/../include/GenerateSubmoduleConfig.php');
 		}
