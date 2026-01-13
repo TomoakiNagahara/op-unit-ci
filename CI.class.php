@@ -142,6 +142,36 @@ class CI implements IF_UNIT, IF_CI
 			}
 			}
 
+			//	Non git managed submodules
+			foreach( glob(_ROOT_ASSET_.'/config/submodule/*/*.php') as $glob ){
+				//	Init
+				$temp = explode('/', $glob);
+				$name = array_pop($temp);
+				$type = array_pop($temp);
+				$name = substr($name, 0, -4);
+				//	Check if public_html
+				if( $type === 'public_html' ){
+					$conf = ( function($path){ return include($path); } )($glob);
+					$path = _ROOT_GIT_ . $conf['path'] ?? $name;
+				}else{
+					$path = _ROOT_ASSET_ . "{$type}/{$name}/";
+				}
+				//	Check
+				if(!file_exists("{$path}/.gitmodules") ){
+					continue;
+				}
+				if(!chdir($path) ){
+					continue;
+				}
+				//	Nested submodules
+				foreach( \OP\UNIT\GIT\SubmoduleConfig() as $config ){
+					if(!chdir( $path . $config['path'] )){
+						continue;
+					}
+					CI_Client::SaveCommitID();
+				}
+			}
+
 			//	Main repository.
 			if( $io ){
 				chdir(RootPath('git'));
