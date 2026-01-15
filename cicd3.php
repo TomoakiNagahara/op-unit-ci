@@ -32,6 +32,11 @@ try {
 	//	Calc app root from current working directory.
 	$pwd = $_SERVER['PWD'];
 	do{
+		//	Support to public_html
+		if( file_exists("{$pwd}/.public_html") ){
+			//	Found
+		}else
+
 		//	Search for app root by detecting app.php
 		if( file_exists("{$pwd}/app.php") ){
 			//	Found
