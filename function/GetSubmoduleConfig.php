@@ -66,6 +66,7 @@ function GetSubmoduleConfig() : array
 			//	...
 			$configs = OP()->Unit('Git')->SubmoduleConfig();
 
+			/*
 			//	...
 			foreach(['unit','module','layout','webpack'] as $type ){
 				//	...
@@ -79,6 +80,31 @@ function GetSubmoduleConfig() : array
 					];
 				}
 			}
+			*/
+
+			//	Non git managed submodules.
+			foreach( glob(_ROOT_ASSET_.'config/submodule/*/*.php') as $glob ){
+				$temp = explode('/', $glob);
+				$name = array_pop($temp);
+				$type = array_pop($temp);
+				$name = explode('.', $name)[0];
+				$config = (function($glob){ return include($glob); })($glob);
+				if( $config['skip'] ?? null ){
+					continue;
+				}
+				switch( $type ){
+					case 'public_html':
+						$path = $config['path'] ?? "public_html";
+						break;
+					default:
+						$path = $config['path'] ?? "asset/{$type}/{$name}";
+					break;
+				}
+				$configs["asset-{$type}-{$name}"] = [
+					'path' => $path,
+				];
+			}
+
 		}else{
 			$configs = include(__DIR__.'/../include/GenerateSubmoduleConfig.php');
 		}
