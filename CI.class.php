@@ -111,6 +111,7 @@ class CI implements IF_UNIT, IF_CI
 
 			//	...
 			if( $configs ){
+				include_once(_ROOT_GIT_."/asset/unit/git/function/SubmoduleConfig.php");
 
 			//	Each submodule repositories.
 			foreach( $configs as $config ){
@@ -135,7 +136,6 @@ class CI implements IF_UNIT, IF_CI
 			//	op-core's submodules.
 			if( $io and !self::Dryrun() ){
 			chdir(_ROOT_CORE_);
-			include_once(_ROOT_GIT_."/asset/unit/git/function/SubmoduleConfig.php");
 			foreach( \OP\UNIT\GIT\SubmoduleConfig() as $config ){
 				chdir( _ROOT_CORE_ . "/{$config['path']}" );
 				CI_Client::SaveCommitID();
