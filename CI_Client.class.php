@@ -337,7 +337,7 @@ class CI_Client implements IF_UNIT
 			//	Check has config.
 			if( empty($configs[$method]) ){
 				$class_name = get_class($obj);
-				echo "This method config is not set: {$class_name} -> {$method}\n";
+				echo "CI ERROR - This method's CI config is empty: {$class_name} -> {$method}\n";
 				return false;
 			}
 
