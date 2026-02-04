@@ -100,7 +100,12 @@ function GetSubmoduleConfig() : array
 						$path = "{$type}/{$config['path']}" ?? "{$type}/{$name}";
 						break;
 					default:
-						$path = $config['path'] ?? "asset/{$type}/{$name}";
+						//	If a path was specified.
+						if( $config['path'] ?? null ){
+							$path =  "asset/{$type}/{$config['path']}";
+						}else{
+							$path =  "asset/{$type}/{$name}";
+						}
 					break;
 				}
 				$configs["asset-{$type}-{$name}"] = [
