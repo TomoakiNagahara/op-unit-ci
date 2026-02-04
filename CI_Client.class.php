@@ -212,7 +212,13 @@ class CI_Client implements IF_UNIT
 				if( $basename === strtolower($name) ){
 					$names = '';
 				}else{
+					//	A hyphen is interpreted as a namespace.
+					if( strpos($basename, '-') ){
+						$names = join('\\', explode('-', $basename));
+						$names = strtoupper($names).'\\';
+					}else{
 					$names = strtoupper($basename).'\\';
+					}
 				}
 			}
 			$class = $namespace . $names . $name;
