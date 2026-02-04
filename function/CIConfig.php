@@ -39,14 +39,25 @@ function CIConfig(&$object) : array
 			$meta = 'core';
 			$name = $class_parse[1];
     }else{
-		//  UNIT or MODULE
-		if( $class_parse[1] === 'UNIT' or $class_parse[1] === 'MODULE' ){
+		//	Get a type
+		$type = $class_parse[1];
+		if( $type === 'UNIT' or $type === 'MODULE' ){
 			$io = true;
 			$meta = strtolower($class_parse[1]);
-            array_shift($class_parse);
-            array_shift($class_parse);
-            $unit = strtolower($class_parse[0]);
-            $name = join('-', $class_parse);
+			array_shift($class_parse); // Throw away OP
+			array_shift($class_parse); // Throw away UNIT, MODULE, LAYOUT
+			$unit = strtolower($class_parse[0]); // APP --> app
+			//	...
+			if( $type === 'UNIT' ){
+				//	Remap unit name.
+				if( $unit = OP()->Config('unit')['mapping'][$unit] ?? null ){
+					$name = $class_parse[ count($class_parse)-1 ];
+				}else{
+					$name = join('-', $class_parse);
+				}
+			}else{
+				$name = join('-', $class_parse);
+			}
         }
 	}
 
