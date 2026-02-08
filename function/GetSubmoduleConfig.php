@@ -96,6 +96,9 @@ function GetSubmoduleConfig() : array
 					case 'public_html':
 						$path = $config['path'] ?? "public_html";
 						break;
+					case 'asset':
+						$path = "{$type}/{$config['path']}" ?? "{$type}/{$name}";
+						break;
 					default:
 						$path = $config['path'] ?? "asset/{$type}/{$name}";
 					break;
