@@ -87,7 +87,7 @@ function GetSubmoduleConfig() : array
 				$temp = explode('/', $glob);
 				$name = array_pop($temp);
 				$type = array_pop($temp);
-				$name = explode('.', $name)[0];
+				$name = basename($name, '.php');
 				$config = (function($glob){ return include($glob); })($glob);
 				if( $config['skip'] ?? null ){
 					continue;
