@@ -210,10 +210,12 @@ class CI_Client implements IF_UNIT
 				 */
 				$basename = basename(getcwd());
 				if( $basename === strtolower($name) ){
+					//	The namespace is same unit name.
 					$names = '';
 				}else{
 					//	A hyphen is interpreted as a namespace.
 					if( strpos($basename, '-') ){
+						//	bitcoin-rpc --> BITCOIN\RPC
 						$names = join('\\', explode('-', $basename));
 						$names = strtoupper($names).'\\';
 					}else{
