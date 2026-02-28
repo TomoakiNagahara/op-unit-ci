@@ -28,11 +28,11 @@ namespace OP\UNIT\CI;
  */
 function CIConfig(&$object) : array
 {
-	//	...
+	//	Get class path and parse it.
 	$class_path  = get_class($object);
 	$class_parse = explode('\\', $class_path);
 
-	//	...
+	//	Check if the class path is a core class.
     if( count($class_parse) === 2 ){
 		//	OP
 			$io   = true;
@@ -61,7 +61,7 @@ function CIConfig(&$object) : array
         }
 	}
 
-	//	...
+	//	False is not correct namespace.
 	if(!$io ?? null ){
 		throw new \Exception("Is correct namespace? ($class_path)");
 	}
