@@ -50,7 +50,7 @@ function CIConfig(&$object) : array
 			//	...
 			if( $type === 'UNIT' ){
 				//	Remap unit name.
-				if( $unit = OP()->Config('unit')['mapping'][$unit] ?? null ){
+				if( $unit = OP()->Config('unit')['mapping'][$unit] ?? $unit ){
 					$name = $class_parse[ count($class_parse)-1 ];
 				}else{
 					$name = join('-', $class_parse);
