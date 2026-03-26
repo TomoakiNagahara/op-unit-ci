@@ -579,6 +579,7 @@ class CI_Client implements IF_UNIT
 			return false;
 		}
 
+		/*
 		//	Check if op-core
 		if( _OP_APP_BRANCH_ == 2030 ){
 		if( realpath(getcwd()) === realpath(_ROOT_CORE_) ){
@@ -586,6 +587,7 @@ class CI_Client implements IF_UNIT
 			`git commit -m "CI: Auto commit submodules."`;
 		}
 		}
+		*/
 
 		//	...
 		$branch    = self::Git()->Branch()->Current();
