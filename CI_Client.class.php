@@ -394,7 +394,9 @@ class CI_Client implements IF_UNIT
 				//	...
 				if( $trace ){
 					echo " --> {$trace[0]} #{$trace[1]}\n";
+					if( $message ){
 					echo "\n  {$message}\n";
+					}
 				}else{
 					$class_name = get_class($obj);
 					echo "\n{$class_name} -> {$method}() is not defined in CI config.\n";
