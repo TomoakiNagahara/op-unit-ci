@@ -79,11 +79,27 @@ namespace OP\UNIT\CI\GIT_STASH;
 function Pop( string $path )
 {
 	//	...
+	$save_dir = getcwd();
+
+	//	...
 	chdir($path);
 
 	//	...
-	if( OP()->Unit()->Git()->Stash()->Pop() ){
+	if( file_exists('.git') ){
 		//	...
-		\OP\UNIT\CI\Display("git stash pop : {$path}");
+		if( OP()->Unit()->Git()->Stash()->Pop() ){
+			//	...
+			\OP\UNIT\CI\Display("git stash pop : {$path}");
+		}
+
+		//	Submodule
+		foreach( OP()->Unit()->Git()->SubmoduleConfig() as $config ){
+			chdir($config['path']);
+			OP()->Unit()->Git()->Stash()->Pop();
+			chdir($path);
+		}
 	}
+
+	//	...
+	chdir($save_dir);
 }
