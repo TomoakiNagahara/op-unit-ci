@@ -310,7 +310,7 @@ class CI_Client implements IF_UNIT
                 case ($method === $skip):
 
                 //	CI relative method is skip.
-				case (strpos($method, '__') === 0 ) ? true: false;
+				case strpos($method, '__') === 0:
 				case 'CI':
 				case 'CI_AllMethods':
 				case 'CI_Inspection':
