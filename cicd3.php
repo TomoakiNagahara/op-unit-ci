@@ -29,6 +29,10 @@ try {
 	//	Exit code
 	$exit = 0;
 
+	//	Change to english locale.
+	putenv('LANG=en_US.UTF-8');
+	putenv('LC_ALL=en_US.UTF-8');
+
 	//	Calc app root from current working directory.
 	$pwd = $_SERVER['PWD'];
 	do{
