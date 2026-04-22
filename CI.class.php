@@ -160,7 +160,7 @@ class CI implements IF_CI
 				$name = substr($name, 0, -4);
 				//	Check if public_html
 				if( $type === 'public_html' ){
-					$conf = ( function($path){ return include($path); } )($glob);
+					$conf = ( function($path) : array { return include($path); } )($glob);
 					$path = _ROOT_GIT_ . $conf['path'] ?? $name;
 				}else{
 					$path = _ROOT_ASSET_ . "{$type}/{$name}/";
