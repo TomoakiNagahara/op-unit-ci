@@ -89,9 +89,18 @@ class CI_Client implements IF_UNIT
 
 		//	...
 		if( file_exists('.ci_skip') ){
+			/**	Codex CLI
+			$requested_unit = OP()->Request('unit');
+			$current_unit   = basename(getcwd() ?: '');
+			if( $requested_unit and $requested_unit === $current_unit ){
+			*/
+			if( OP()->Request('unit') ){
+				self::Display('Ignore .ci_skip because unit was specified explicitly.');
+			}else{
 			self::Display('Found .ci_skip file.');
 			self::SaveCommitID();
 			return false;
+			} // if( OP()->Request('unit') )
 		}
 
 		//	...
